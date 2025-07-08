@@ -1,0 +1,5 @@
+<div class="slideshow-container" *ngIf="isActive">
+    <div *ngFor="let slide of slides; let i = index" class="slide" [class.active]="i === currentIndex"
+        [style.background-image]="'url(' + slide + ')'">
+    </div>
+</div>

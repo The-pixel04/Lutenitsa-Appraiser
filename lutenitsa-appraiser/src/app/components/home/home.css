@@ -1,19 +1,22 @@
 .hero {
-    max-width: 1200px;
-    margin: 0 auto;
+    width: 100%;
+    margin: 2em auto;
     text-align: center;
     padding: 4rem 0;
     color: #be5a44;
+    /* background-image: url('../../../../public/360_F_550409910_UYDguYy7GRjOPNUF1QkUvwFOvEyKyyMP.jpg'); */
+    background-size: cover;
+    z-index: 1;
 }
 
-h1{
-    font-size: 2.5rem;
+h1 {
+    font-size: 3em;
     margin-bottom: 1rem;
     font-weight: 700;
     color: #3a2a22;
 }
 
-p{
+p {
     font-size: 1.2rem;
     margin-bottom: 2rem;
     color: #b84040;
@@ -32,6 +35,17 @@ p{
 }
 
 .cta-button:hover {
-    background-color: #c31b1b;
+    background-color: #391010;
     transform: translateY(-2px);
+}
+
+.hero {
+    opacity: 0.3;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+}
+
+.content-active {
+    opacity: 1;
+    pointer-events: auto;
 }
