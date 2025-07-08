@@ -1,6 +1,33 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.google.com/share?selection.family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900');
+@import url('https://fonts.google.com/share?selection.family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900|Noto+Sans:ital,wght@0,100..900;1,100..900');
+
 body {
     margin: 0;
     padding: 0;
     min-width: 100vh;
+}
+
+main{
+    color:#f8f4e9;
+}
+
+.main-content {
+    min-height: calc(100vh - 200px);
+    padding: 2rem;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'Lato', sans-serif;
+}
+
+p,
+ul,
+ol,
+a {
+    font-family: 'Noto Sans', sans-serif;
 }
