@@ -20,7 +20,7 @@ export class Slideshow implements OnInit {
   currentIndex = 0;
   transitionSpeed = 300;
   isActive = true;
-  private intervalId: any;
+  private intervalId!: ReturnType<typeof setInterval>;
 
   ngOnInit() {
     this.startSlideshow();
@@ -44,15 +44,5 @@ export class Slideshow implements OnInit {
     clearInterval(this.intervalId);
     this.isActive = false;
     this.slideshowComplete.emit()
-  }
-
-  onMouseEnter() {
-    this.stopSlideshow();
-  }
-
-  onMouseLeave() {
-    if (this.currentIndex < this.slides.length - 1) {
-      this.startSlideshow();
-    }
   }
 }
