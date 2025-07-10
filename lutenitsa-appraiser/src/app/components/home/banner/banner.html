@@ -1,0 +1,16 @@
+<section class="banner" [class.content-active]="slideshowFinished">
+    @if (animatedPeppers.length > 0) {
+    <div class="pepper-animation">
+        @for (pepper of animatedPeppers; track $index) {
+        <span class="pepper">{{pepper}}</span>
+        }
+    </div>
+    }
+
+    <h1>Welcome to Lutenitsa Appraiser</h1>
+    <p>Everyone can evaluate lyutenitsa</p>
+
+    <button class="cta-button" routerLink="/catalog">
+        Explore Catalog
+    </button>
+</section>

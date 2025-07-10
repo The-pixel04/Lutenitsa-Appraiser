@@ -1,7 +1,5 @@
 <app-slideshow (slideshowComplete)="onSlideshowComplete()"></app-slideshow>
 
-<section class="hero" [class.content-active]="slideshowFinished">
-    <h1>Welcome to Lutenitsa Appraiser</h1>
-    <p>Everyone can evaluate lyutenitsa </p>
-    <button class="cta-button" routerLink="/catalog">Explore Catalog</button>
+<section class="banner" [class.content-active]="slideshowFinished">
+    <app-banner></app-banner>
 </section>

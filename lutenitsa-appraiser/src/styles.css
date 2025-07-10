@@ -5,10 +5,14 @@ body {
     margin: 0;
     padding: 0;
     min-width: 100vh;
+    background:
+        radial-gradient(circle at 10% 20%, rgba(212, 84, 55, 0.1) 0%, transparent 25%),
+        linear-gradient(to bottom, #fffdf6, #eee7d8);
+    color: #5C3A21;
 }
 
-main{
-    color:#f8f4e9;
+main {
+    color: #fefbf4;
 }
 
 .main-content {
@@ -22,6 +26,7 @@ h3,
 h4,
 h5,
 h6 {
+    text-shadow: 2px 2px 4px rgba(92, 58, 33, 0.2);
     font-family: 'Lato', sans-serif;
 }
 
