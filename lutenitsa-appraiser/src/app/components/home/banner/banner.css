@@ -53,6 +53,7 @@ p {
     font-size: 1.5rem;
     opacity: 0.6;
     animation: float 5s infinite ease-in-out;
+    will-change: transform
 }
 
 .cta-button {
