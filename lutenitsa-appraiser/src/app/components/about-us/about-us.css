@@ -1,0 +1,33 @@
+.about-card {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1rem;
+  background-color: #fffaf5; /* subtle warm background */
+  color: #3e2723; /* rich brown text color for readability */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+mat-card-title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #5d1f0f; /* darker tomato-like tone */
+}
+
+mat-card-subtitle {
+  font-size: 1rem;
+  color: #7b3e3e;
+}
+
+mat-card-content p {
+  margin-bottom: 1rem;
+  line-height: 1.6;
+  font-size: 1.1rem;
+}
+
+mat-card-actions {
+  margin-top: 1rem;
+}
+
+button {
+  margin-right: 1rem;
+}

@@ -1,0 +1,28 @@
+.contact-card {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 1rem;
+    color: #3e2723;
+    background-color: #fffaf5;
+}
+
+mat-card-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #5d1f0f;
+}
+
+mat-card-content p {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.1rem;
+    margin: 0.5rem 0;
+}
+
+.map-container {
+    margin-top: 1rem;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
