@@ -1,0 +1,26 @@
+<mat-card class="auth-card" @fadeIn>
+    <h2>Register</h2>
+    <form [formGroup]="registerForm" >
+        <mat-form-field appearance="outline">
+            <mat-label>Username</mat-label>
+            <input matInput formControlName="username" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" type="email" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Password</mat-label>
+            <input matInput formControlName="password" type="password" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Confirm Password</mat-label>
+            <input matInput formControlName="confirmPassword" type="password" />
+        </mat-form-field>
+
+        <button mat-raised-button color="accent" type="submit" [disabled]="!registerForm.valid">Register</button>
+    </form>
+</mat-card>

@@ -1,0 +1,129 @@
+.auth-card {
+    max-width: 450px;
+    margin: 3rem auto;
+    padding: 2.5rem;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.auth-card:hover {
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.15);
+}
+
+.auth-card h2 {
+    text-align: center;
+    color: #5d1f0f;
+    margin-bottom: 2rem;
+    font-weight: 500;
+}
+
+mat-form-field {
+    width: 100%;
+    margin-bottom: 1.25rem;
+    color: #d32f2f;
+}
+
+mat-form-field.mat-form-field-appearance-outline .mat-form-field-outline {
+    color: #5d1f0f;
+}
+
+mat-form-field.mat-focused .mat-form-field-outline-thick {
+    color: #d45437;
+}
+
+mat-label {
+    color: #5d1f0f;
+}
+
+input[matInput] {
+    color: #3e2723;
+}
+
+mat-form-field .mat-icon {
+    color: #5d1f0f;
+    margin-right: 8px;
+}
+
+button[mat-raised-button] {
+    background: #d32f2f;
+    color: white;
+    border-radius: 10px;
+    width: 100%;
+    padding: 0.8rem;
+    margin-top: 1rem;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+
+button[mat-raised-button]:hover {
+    transform: translateY(-2px);
+    background: #b5462d;
+}
+
+button[mat-raised-button]:disabled {
+    background: #e0a99a;
+}
+
+mat-error {
+    color: #d32f2f;
+    font-size: 0.75rem;
+}
+
+.auth-footer {
+    display: flex;
+    justify-content: center;
+    margin-top: 1.5rem;
+    gap: 1rem;
+}
+
+.auth-footer a {
+    color: #5d1f0f;
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: color 0.2s ease;
+}
+
+.auth-footer a:hover {
+    color: #d45437;
+    text-decoration: underline;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+mat-form-field,
+button {
+    animation: fadeIn 0.4s ease-out forwards;
+}
+
+mat-form-field:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+mat-form-field:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+mat-form-field:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+mat-form-field:nth-child(4) {
+    animation-delay: 0.4s;
+}
+
+button {
+    animation-delay: 0.5s;
+}

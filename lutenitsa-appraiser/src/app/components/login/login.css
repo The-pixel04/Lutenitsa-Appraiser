@@ -1,0 +1,81 @@
+.auth-card {
+    max-width: 400px;
+    margin: 3rem auto;
+    padding: 2.5rem;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.auth-card:hover {
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.15);
+}
+
+.auth-card h2 {
+    text-align: center;
+    color: #5d1f0f;
+    margin-bottom: 2rem;
+    font-weight: 500;
+}
+
+mat-form-field {
+    width: 100%;
+    margin-bottom: 1.5rem;
+    border-color: #5d1f0f;
+    color: #d45437;
+}
+
+mat-label{
+    color: #5d1f0f;
+}
+
+input[matInput] {
+    border-color: #3e2723;
+    color:#d45437
+}
+
+button[mat-raised-button] {
+    background: #d45437;
+    color: white;
+    border-radius: 10px;
+    width: 100%;
+    padding: 0.8rem;
+    margin-top: 0.5rem;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+}
+
+button[mat-raised-button]:hover {
+    transform: translateY(-2px);
+}
+
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+mat-form-field,
+button {
+    animation: fadeIn 0.4s ease-out forwards;
+}
+
+mat-form-field {
+    animation-delay: 0.1s;
+}
+
+button {
+    animation-delay: 0.2s;
+}
+
+button[mat-raised-button]:disabled {
+    background: #e0a99a;
+}
