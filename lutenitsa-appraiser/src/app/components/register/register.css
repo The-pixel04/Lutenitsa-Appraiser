@@ -26,7 +26,7 @@ mat-form-field {
 }
 
 mat-form-field.mat-form-field-appearance-outline .mat-form-field-outline {
-    color: #5d1f0f;
+    color: #5d1f0fad;
 }
 
 mat-form-field.mat-focused .mat-form-field-outline-thick {
@@ -34,15 +34,15 @@ mat-form-field.mat-focused .mat-form-field-outline-thick {
 }
 
 mat-label {
-    color: #5d1f0f;
+    color: #5c1f10c3;
 }
 
-input[matInput] {
+input {
     color: #3e2723;
 }
 
 mat-form-field .mat-icon {
-    color: #5d1f0f;
+    color: #544e4d;
     margin-right: 8px;
 }
 

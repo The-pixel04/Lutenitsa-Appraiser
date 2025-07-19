@@ -1,10 +1,11 @@
 import { Component, Input } from '@angular/core';
 import { Appraise } from '../../../models/appraise.model';
 import { DatePipe } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-appraise-card',
-  imports: [DatePipe],
+  imports: [DatePipe, RouterLink],
   templateUrl: './appraise-card.html',
   styleUrl: './appraise-card.css'
 })

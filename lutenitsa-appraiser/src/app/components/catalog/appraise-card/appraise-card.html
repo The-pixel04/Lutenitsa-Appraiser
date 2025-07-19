@@ -1,13 +1,15 @@
-<div class="appraise-card">
-            <div class="image-container">
-                <img [src]="appraise.image" [alt]="appraise.brand" class="appraise-image">
-            </div>
-            <div class="details">
-                <h3>{{ appraise.brand }}</h3>
-                <p>
+<a routerLink="/details/{{appraise.id}}">
+    <div class="appraise-card">
+        <div class="image-container">
+            <img [src]="appraise.image" [alt]="appraise.brand" class="appraise-image">
+        </div>
+        <div class="details">
+            <h3>{{ appraise.brand }}</h3>
+            <p>
                 @for (star of getStars(appraise.rating); track star) {
                 ⭐
                 } /10</p>
-                <p class="date">{{ appraise.created_at | date:'mediumDate' }}</p>
-            </div>
-</div>
+            <p class="date">{{ appraise.created_at | date:'mediumDate' }}</p>
+        </div>
+    </div>
+</a>

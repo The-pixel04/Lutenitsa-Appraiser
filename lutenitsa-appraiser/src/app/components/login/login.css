@@ -19,6 +19,10 @@
     font-weight: 500;
 }
 
+input::placeholder{
+    color:gray
+}
+
 mat-form-field {
     width: 100%;
     margin-bottom: 1.5rem;
