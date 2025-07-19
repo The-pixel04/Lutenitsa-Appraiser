@@ -1,0 +1,16 @@
+<div class="appraise-container">
+    <h2>Lutenitsa Appraises</h2>
+
+    @if (loading) {
+    <mat-spinner></mat-spinner>
+    } @else {
+    <div class="appraise-grid">
+        @for (appraise of appraises$ | async; track appraise.id) {
+            <app-appraise-card [appraise]="appraise"></app-appraise-card>
+        } @empty {
+            <mat-spinner></mat-spinner>
+        <p>No appraises found</p>
+        }
+    </div>
+    }
+</div>

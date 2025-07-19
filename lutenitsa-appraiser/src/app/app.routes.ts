@@ -22,14 +22,18 @@ export const routes: Routes = [
     },
     {
         path: 'contact',
-        component:Contact
+        component: Contact
     },
     {
-        path:'login',
-        component:Login
+        path: 'login',
+        loadComponent: () => import('./components/login/login').then(c => c.Login)
     },
     {
-        path:'register',
-        component:Register
+        path: 'register',
+        loadComponent: () => import('./components/register/register').then(c => c.Register)
+    },
+    {
+        path: 'catalog',
+        loadComponent: () => import('./components/catalog/catalog').then(c => c.Catalog)
     }
 ];
