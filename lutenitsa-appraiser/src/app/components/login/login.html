@@ -1,6 +1,6 @@
 <mat-card class="auth-card" @fadeIn>
   <h2>Login</h2>
-  <form [formGroup]="loginForm" >
+  <form [formGroup]="loginForm">
     <mat-form-field appearance="outline">
       <mat-label>Email</mat-label>
       <input matInput formControlName="email" type="email" />
@@ -14,4 +14,3 @@
     <button mat-raised-button color="primary" type="submit" [disabled]="!loginForm.valid">Login</button>
   </form>
 </mat-card>
-
