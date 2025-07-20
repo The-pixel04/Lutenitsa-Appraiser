@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { environment } from "../../../environments/environment.development";
 import { createClient, SupabaseClient } from "@supabase/supabase-js";
-import { from, map, Observable } from "rxjs";
+import { catchError, from, map, Observable, throwError } from "rxjs";
 import { Appraise } from "../../models/appraise.model";
 
 
@@ -24,16 +24,19 @@ export class AppraiseService {
     }
 
     getAllAppraises(): Observable<Appraise[]> {
-        return from(this.supaBase
-            .from('appraises')
-            .select('*'))
-            .pipe(
-                map(res => {
-                    if (res.error) {
-                        throw res.error
-                    }
+        return from(
+            this.supaBase
+                .from('appraises')
+                .select('*')
+                .then(res => {
+                    if (res.error) throw res.error;
                     return res.data as Appraise[];
                 })
-            );
+        ).pipe(
+            catchError(error => {
+                console.error('Error fetching appraises:', error);
+                return throwError(() => error);
+            })
+        );
     }
 }

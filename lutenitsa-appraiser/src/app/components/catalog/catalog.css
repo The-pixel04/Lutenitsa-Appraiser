@@ -4,6 +4,7 @@
     margin: 0 auto;
 }
 
+
 .appraise-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -11,13 +12,14 @@
     margin-top: 20px;
 }
 
-mat-spinner {
-    width: 60px;
-    height: 60px;
-    margin: 2rem auto;
+.spinner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100px;
+}
 
-    circle {
-        stroke: #8B4513;
-        stroke-width: 8%;
-    }
+.mat-mdc-progress-spinner {
+    opacity: 1 !important;
+    --mdc-circular-progress-active-indicator-color: #3f51b5;
 }
