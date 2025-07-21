@@ -1,0 +1,31 @@
+@if (loading) {
+<div class="spinner">
+    <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+</div>
+}
+@if (appraise$ | async; as appraise) {
+    <div class="appraise-details">
+    <div class="head">
+        <h1>{{ appraise.brand }}</h1>
+    </div>
+
+    <div class="rating">
+        <p>
+            @for (star of getStars(appraise.rating); track $index) {
+            ⭐
+            }/10
+        </p>
+    </div>
+
+    <div class="image-container">
+        <img [src]="appraise.image" alt="Appraise image">
+    </div>
+
+    <div class="appraise-text">
+        <h3>Evaluation:</h3>
+        <p>{{ appraise.appraise }}</p>
+    </div>
+
+    <span class="date">{{ formatDate(appraise.created_at) }}</span>
+</div>
+}

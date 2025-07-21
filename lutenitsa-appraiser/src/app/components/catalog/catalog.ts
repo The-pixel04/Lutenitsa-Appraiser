@@ -25,12 +25,10 @@ export class Catalog {
     loadAppraises(): void {
         this.appraiseService.getAllAppraises().pipe(
             finalize(() => {
-                console.log('Finalize triggered');
                 this.loading = false;
             })
         ).subscribe({
             next: data => {
-                console.log('Data:', data);
                 this.appraises = data;
             },
             error: err => {
