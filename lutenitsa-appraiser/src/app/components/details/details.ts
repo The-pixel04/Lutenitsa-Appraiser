@@ -1,26 +1,29 @@
-import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { AppraiseService } from '../../core/services/appraise.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { AsyncPipe, DatePipe } from '@angular/common';
+import { AsyncPipe, DatePipe, Location } from '@angular/common';
 import { catchError, finalize, Observable, of } from 'rxjs';
 import { Appraise } from '../../models/appraise.model';
+import { MatButton, MatButtonModule } from '@angular/material/button';
 
 @Component({
     selector: 'app-details',
-    imports: [MatProgressSpinnerModule, AsyncPipe, AsyncPipe],
+    imports: [MatProgressSpinnerModule, AsyncPipe, AsyncPipe, MatButtonModule],
     templateUrl: './details.html',
     styleUrl: './details.css'
 })
 export class Details {
     appraise$!: Observable<Appraise>;
+    router = inject(Router);
     loading = true;
     error = false;
-     private datePipe = new DatePipe('en-US');
+    private datePipe = new DatePipe('en-US');
 
     constructor(
         private route: ActivatedRoute,
-        private appraiseService: AppraiseService
+        private appraiseService: AppraiseService,
+        private location:Location
     ) {
         const id = Number(this.route.snapshot.paramMap.get('id'));
         this.appraise$ = this.loadAppraise(id);
@@ -46,5 +49,9 @@ export class Details {
 
     getStars(rating: number): number[] {
         return Array(Math.round(rating)).fill(0);
+    }
+
+    goBack(): void {
+        this.location.back()
     }
 }
