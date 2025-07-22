@@ -1,5 +1,8 @@
-<div class="slideshow-container" *ngIf="isActive">
-    <div *ngFor="let slide of slides; let i = index" class="slide" [class.active]="i === currentIndex"
-        [style.background-image]="'url(' + slide + ')'">
+@if (isActive) {
+<div class="slideshow-container">
+    @for (slide of slides; track slide; let i = $index) {
+    <div class="slide" [class.active]="i === currentIndex" [style.background-image]="'url(' + slide + ')'">
     </div>
+    }
 </div>
+}
