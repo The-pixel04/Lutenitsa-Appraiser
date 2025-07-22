@@ -1,0 +1,42 @@
+.appraise-card {
+    max-width: 500px;
+    margin: 2rem auto;
+    padding: 2rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+    h2 {
+        text-align: center;
+        margin-bottom: 2rem;
+        font-weight: 500;
+    }
+}
+
+.appraise-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+
+mat-form-field {
+    width: 100%;
+
+    .mat-form-field-outline {
+        background-color: #f5f5f5;
+        border-radius: 4px;
+    }
+}
+
+button[type="submit"] {
+    margin-top: 1rem;
+    padding: 0.75rem 0;
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+
+    &:disabled {
+        background-color: #e0a99a !important;
+        color: white !important;
+        cursor: not-allowed;
+    }
+}
