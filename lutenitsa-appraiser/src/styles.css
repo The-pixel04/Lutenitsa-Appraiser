@@ -1,10 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
 @import url("@angular/material/prebuilt-themes/indigo-pink.css");
 
-body {
+html, body {
     margin: 0;
     padding: 0;
     min-width: 100vh;
+    height: 100%;
     background:
         radial-gradient(circle at 10% 20%, rgba(212, 84, 55, 0.1) 0%, transparent 25%),
         linear-gradient(to bottom, #fffdf6, #eee7d8);
@@ -12,9 +13,8 @@ body {
 }
 
 
-.main-content {
-    min-height: calc(100vh - 200px);
-    padding: 2rem;
+main {
+    min-height: calc(100vh - 250px);
 }
 
 h1,
