@@ -5,7 +5,6 @@ import { Banner } from "./banner/banner";
 @Component({
   selector: 'app-home',
   imports: [Slideshow, Banner],
-  standalone: true,
   templateUrl: './home.html',
   styleUrl: './home.css'
 })

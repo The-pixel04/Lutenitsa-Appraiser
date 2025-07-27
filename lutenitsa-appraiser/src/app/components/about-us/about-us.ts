@@ -5,7 +5,6 @@ import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-about-us',
-  standalone: true,
   imports: [MatCardModule, MatButtonModule],
   templateUrl: './about-us.html',
   styleUrl: './about-us.css'

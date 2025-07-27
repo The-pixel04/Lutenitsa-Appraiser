@@ -4,7 +4,6 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 @Component({
   selector: 'app-slideshow',
   imports: [CommonModule],
-  standalone: true,
   templateUrl: './slideshow.html',
   styleUrl: './slideshow.css'
 })

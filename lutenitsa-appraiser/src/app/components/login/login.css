@@ -19,8 +19,8 @@
     font-weight: 500;
 }
 
-input::placeholder{
-    color:gray
+input::placeholder {
+    color: gray
 }
 
 mat-form-field {
@@ -30,13 +30,13 @@ mat-form-field {
     color: #391010;
 }
 
-mat-label{
+mat-label {
     color: #5d1f0f;
 }
 
 input[matInput] {
     border-color: #3e2723;
-    color:#d45437
+    color: #d45437
 }
 
 button[mat-raised-button] {
@@ -82,4 +82,12 @@ button {
 
 button[mat-raised-button]:disabled {
     background: #e0a99a;
+}
+
+.register-link {
+    a {
+        color: #d45437;
+        text-decoration: none;
+        font-weight: 500;
+    }
 }

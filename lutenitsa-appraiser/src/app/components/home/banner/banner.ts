@@ -4,7 +4,6 @@ import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-banner',
   imports: [RouterLink],
-  standalone: true,
   templateUrl: './banner.html',
   styleUrl: './banner.css'
 })

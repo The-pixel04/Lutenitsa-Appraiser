@@ -127,3 +127,11 @@ mat-form-field:nth-child(4) {
 button {
     animation-delay: 0.5s;
 }
+
+.login-link {
+    a {
+        color: #d45437;
+        text-decoration: none;
+        font-weight: 500;
+    }
+}

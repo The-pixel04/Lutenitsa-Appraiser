@@ -3,14 +3,19 @@
   <form [formGroup]="loginForm">
     <mat-form-field appearance="outline">
       <mat-label>Email</mat-label>
-      <input matInput formControlName="email" type="email" placeholder="examle@email.com"/>
+      <input matInput formControlName="email" type="email" placeholder="examle@email.com" />
     </mat-form-field>
 
     <mat-form-field appearance="outline">
       <mat-label>Password</mat-label>
-      <input matInput formControlName="password" type="password" placeholder="*****"/>
+      <input matInput formControlName="password" type="password" placeholder="*****" />
     </mat-form-field>
 
     <button mat-raised-button color="primary" type="submit" [disabled]="!loginForm.valid">Login</button>
+
+    <p class="register-link">
+      Do not have an account?
+      <a routerLink="/register">register here</a>
+    </p>
   </form>
 </mat-card>
