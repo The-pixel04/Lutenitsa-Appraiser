@@ -49,3 +49,9 @@
 .active {
   border-bottom: 2px solid #df8364;
 }
+
+@media (max-width: 780px) {
+  .header {
+    width: 100%;
+  }
+}

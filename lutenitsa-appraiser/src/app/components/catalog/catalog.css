@@ -6,8 +6,8 @@
 
 
 .appraise-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    display: flex;
+    flex-direction: row;
     gap: 20px;
     margin-top: 20px;
 }
@@ -22,4 +22,17 @@
 .mat-mdc-progress-spinner {
     opacity: 1 !important;
     --mdc-circular-progress-active-indicator-color: #3f51b5;
+}
+
+@media (max-width: 780px) {
+    .appraise-container{
+        width: 100%;
+        h2{
+            text-align: center;
+        }
+    }
+    .appraise-grid {
+        flex-direction: column;
+        align-items: center;
+    }
 }

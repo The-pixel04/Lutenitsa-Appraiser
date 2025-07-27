@@ -41,3 +41,9 @@ mat-card-actions {
         border-radius: 10px;
     }
 }
+
+@media(max-width:780px){
+    .about-card {
+        width: 90%;;
+    }
+}
