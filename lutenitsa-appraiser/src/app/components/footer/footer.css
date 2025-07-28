@@ -3,6 +3,7 @@
     color: #fff;
     padding: 2rem;
     text-align: center;
+    position: relative;
 }
 
 .footer-content {
@@ -31,5 +32,9 @@
 @media (max-width: 780px) {
     .footer{
         display: flex;
+    }
+
+    .footer-content{
+        margin: 0.5em;
     }
 }

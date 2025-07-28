@@ -130,3 +130,13 @@ p {
     left: 50%;
     animation-delay: 2s;
 }
+
+@media(max-width:450px) {
+    .banner {
+        width: 84%;
+    }
+
+    h1 {
+        width: auto;
+    }
+}
