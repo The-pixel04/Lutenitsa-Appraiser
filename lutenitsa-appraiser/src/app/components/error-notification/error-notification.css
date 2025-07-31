@@ -1,0 +1,17 @@
+.error-message {
+    position: fixed;
+    top: 1.5em;
+    right: 2em;
+    background-color: #3f2fd3;
+    color: #fff;
+    padding: 0.75em 1.5em;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: bold;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    max-width: 350px;
+    letter-spacing: 0.5px;
+    z-index: 9999;
+    margin: 0;
+    pointer-events: none;
+}

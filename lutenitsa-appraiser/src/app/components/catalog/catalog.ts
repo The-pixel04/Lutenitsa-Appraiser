@@ -30,9 +30,6 @@ export class Catalog {
         ).subscribe({
             next: data => {
                 this.appraises = data;
-            },
-            error: err => {
-                console.error('Error:', err);
             }
         });
     }

@@ -1,8 +1,9 @@
-import { Injectable } from "@angular/core";
+import { inject, Injectable } from "@angular/core";
 import { environment } from "../../../environments/environment.development";
 import { createClient, SupabaseClient } from "@supabase/supabase-js";
 import { catchError, from, Observable, throwError } from "rxjs";
 import { Appraise } from "../../models/appraise.model";
+import { ErrorService } from "./error.service";
 
 
 @Injectable({
@@ -12,9 +13,11 @@ import { Appraise } from "../../models/appraise.model";
 export class AppraiseService {
     private apiUrl = environment.apiUrl;
     private supaBase: SupabaseClient;
+    private apiKey = environment.apiKey;
+    private errorService = inject(ErrorService);
 
     constructor() {
-        this.supaBase = createClient(this.apiUrl, environment.apiKey, {
+        this.supaBase = createClient(this.apiUrl, this.apiKey, {
             auth: {
                 autoRefreshToken: false,
                 persistSession: true,
@@ -34,7 +37,7 @@ export class AppraiseService {
                 })
         ).pipe(
             catchError(error => {
-                console.error('Error fetching appraises:', error);
+                this.errorService.setError(error.message || 'Unknown error');
                 return throwError(() => error);
             })
         );
@@ -53,7 +56,7 @@ export class AppraiseService {
                 })
         ).pipe(
             catchError(error => {
-                console.error('Error fetching appraise:', error);
+                this.errorService.setError(error.message || 'Unknown error');
                 return throwError(() => error);
             })
         );
