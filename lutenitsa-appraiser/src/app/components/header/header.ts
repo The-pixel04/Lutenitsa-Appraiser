@@ -1,12 +1,12 @@
-
 import { CommonModule } from '@angular/common';
-import { Component, ViewChild } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatSidenavModule, MatSidenav } from '@angular/material/sidenav';
+import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
+import { AuthService } from '../../core/services/auth.service';
 
 @Component({
     selector: 'app-header',
@@ -25,7 +25,24 @@ import { MatMenuModule } from '@angular/material/menu';
     styleUrl: './header.css'
 })
 export class Header {
+    protected authService = inject(AuthService);
+    private router = inject(Router);
+
+    readonly isAuthenticated = this.authService.isAuthenticated;
+    readonly currentUser = this.authService.currentUser;
+
     menuOpen = false;
+
+    logOut(): void {
+        this.authService.logout().subscribe({
+            next: () => {
+                this.router.navigate(['/']);
+            },
+            error: (err) => {
+                console.error('Logout failed', err);
+            }
+        })
+    }
 
     toggleMenu(): void {
         this.menuOpen = !this.menuOpen;

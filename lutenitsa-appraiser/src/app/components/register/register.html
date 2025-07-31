@@ -1,6 +1,6 @@
 <mat-card class="auth-card" @fadeIn>
     <h2>Register</h2>
-    <form [formGroup]="registerForm">
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
         <mat-form-field appearance="outline">
             <mat-label>Username</mat-label>
             <input matInput formControlName="username" />

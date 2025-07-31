@@ -1,11 +1,11 @@
-import { Component, inject } from '@angular/core';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { AppraiseService } from '../../core/services/appraise.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AsyncPipe, DatePipe, Location } from '@angular/common';
 import { catchError, finalize, Observable, of } from 'rxjs';
 import { Appraise } from '../../models/appraise.model';
-import { MatButton, MatButtonModule } from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
     selector: 'app-details',
@@ -15,15 +15,13 @@ import { MatButton, MatButtonModule } from '@angular/material/button';
 })
 export class Details {
     appraise$!: Observable<Appraise>;
-    router = inject(Router);
     loading = true;
-    error = false;
     private datePipe = new DatePipe('en-US');
 
     constructor(
         private route: ActivatedRoute,
         private appraiseService: AppraiseService,
-        private location:Location
+        private location: Location
     ) {
         const id = Number(this.route.snapshot.paramMap.get('id'));
         this.appraise$ = this.loadAppraise(id);
@@ -32,12 +30,10 @@ export class Details {
 
     loadAppraise(id: number): Observable<Appraise> {
         this.loading = true;
-        this.error = false;
 
         return this.appraiseService.getAppraise(id).pipe(
             finalize(() => this.loading = false),
             catchError(err => {
-                this.error = true;
                 return of(err);
             })
         );

@@ -9,17 +9,23 @@
 
             <div class="nav-links" [class.mobile-active]="menuOpen">
                 <a routerLink="/catalog" routerLinkActive="active" (click)="closeMenu()">Catalog</a>
+                @if(isAuthenticated()){
                 <a routerLink="/profile" routerLinkActive="active" (click)="closeMenu()">Profile</a>
+                }@else{
                 <a routerLink="/login" routerLinkActive="active" (click)="closeMenu()">Login</a>
+                }
 
                 <a routerLink="/home" class="logo-link" (click)="closeMenu()">
                     <img src="https://png.pngtree.com/png-vector/20230218/ourmid/pngtree-red-tomato-cartoon-illustration-png-image_6608572.png"
                         alt="Home" class="logo">
                 </a>
 
-                <a routerLink="/logout" routerLinkActive="active" (click)="closeMenu()">Logout</a>
-                <a routerLink="/register" routerLinkActive="active" (click)="closeMenu()">Register</a>
+                @if(isAuthenticated()){
                 <a routerLink="/add-appraise" routerLinkActive="active" (click)="closeMenu()">Add Appraise</a>
+                <a routerLink="#" routerLinkActive="active" (click)="closeMenu()" (click)="logOut()">Logout</a>
+                }@else{
+                <a routerLink="/register" routerLinkActive="active" (click)="closeMenu()">Register</a>
+                }
             </div>
         </div>
     </nav>

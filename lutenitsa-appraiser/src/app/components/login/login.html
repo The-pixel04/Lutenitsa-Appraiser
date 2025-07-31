@@ -1,6 +1,6 @@
 <mat-card class="auth-card" @fadeIn>
   <h2>Login</h2>
-  <form [formGroup]="loginForm">
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <mat-form-field appearance="outline">
       <mat-label>Email</mat-label>
       <input matInput formControlName="email" type="email" placeholder="examle@email.com" />
