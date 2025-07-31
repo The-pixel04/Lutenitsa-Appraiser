@@ -109,8 +109,8 @@ export class AuthService {
         )
     }
 
-    getUserId(): string | null {
-        const user = this._currentUser();
+    async getUserId(): Promise<string | null> {
+        const { data: { user } } = await this.supaBase.auth.getUser();
         return user ? user.id : null;
     }
 }

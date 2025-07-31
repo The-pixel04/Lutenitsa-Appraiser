@@ -5,5 +5,5 @@ export interface Appraise {
     image: string;
     rating: number;
     appraise: string;
-    userId:string;
+    user_id: string;
 }

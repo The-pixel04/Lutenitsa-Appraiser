@@ -28,11 +28,15 @@ mat-form-field {
 }
 
 button[type="submit"] {
+    background: #d32f2f;
+    color: white;
+    border-radius: 10px;
+    width: 100%;
+    padding: 0.8rem;
     margin-top: 1rem;
-    padding: 0.75rem 0;
     font-size: 1rem;
+    transition: all 0.2s ease;
     font-weight: 500;
-    letter-spacing: 0.5px;
 
     &:disabled {
         background-color: #e0a99a !important;

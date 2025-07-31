@@ -34,10 +34,10 @@ export class AddAppraise {
         });
     }
 
-    onSubmit(): void {
+    async onSubmit(): Promise<void> {
         if (this.appraiseForm.valid) {
-            const userId = this.authService.getUserId();
-            this.appraiseService.createAppraise({ ...this.appraiseForm.value, userId }).subscribe({
+            const user_id = await this.authService.getUserId();
+            this.appraiseService.createAppraise({ ...this.appraiseForm.value, user_id}).subscribe({
                 next: () => {
                     this.router.navigate(['/catalog'])
                 },
