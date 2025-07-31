@@ -1,7 +1,7 @@
 import { Injectable, signal, inject } from "@angular/core";
 import { environment } from "../../../environments/environment.development";
 import { User } from "../../models/user.model";
-import { from, map, Observable, tap } from "rxjs";
+import { catchError, from, map, Observable, tap, throwError } from "rxjs";
 import { createClient, SupabaseClient } from "@supabase/supabase-js";
 import { ErrorService } from "./error.service";
 
@@ -54,11 +54,14 @@ export class AuthService {
         ).pipe(
             map(response => {
                 if (response.error || !response.data.user) {
-                    this.errorService.setError(response.error?.message || "User registration failed");
                     throw response.error || new Error("User registration failed");
                 }
                 console.log(response.data)
                 return response.data.user as User
+            }),
+            catchError(error => {
+                this.errorService.setError(error?.message || "User registration failed");
+                return throwError(() => error);
             }),
             tap((user) => {
                 this._currentUser.set(user);
@@ -77,10 +80,13 @@ export class AuthService {
         ).pipe(
             map(response => {
                 if (response.error || !response.data.user) {
-                    this.errorService.setError(response.error?.message || "User login failed");
                     throw response.error || new Error("User login failed");
                 }
                 return response.data.user as User;
+            }),
+            catchError(error => {
+                this.errorService.setError(error?.message || "User login failed")
+                return throwError(() => error);
             }),
             tap((user) => {
                 this._currentUser.set(user);

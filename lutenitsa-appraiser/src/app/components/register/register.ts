@@ -37,8 +37,14 @@ export class Register {
     onSubmit(): void {
         if (this.registerForm.valid) {
             const { username, email, password, confirmPassword } = this.registerForm.value;
-            this.authService.register(email, password, confirmPassword).subscribe();
-            this.router.navigate(['/']);
+            this.authService.register(email, password, confirmPassword).subscribe({
+                next: () => {
+                    this.router.navigate(['/']);
+                },
+                error: (err) => {
+                    console.error('Registration failed', err);
+                }
+            });
         }
     }
 
