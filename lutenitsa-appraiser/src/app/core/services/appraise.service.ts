@@ -61,4 +61,20 @@ export class AppraiseService {
             })
         );
     }
+
+    createAppraise(appraise: Appraise): Observable<void> {
+        return from(
+            this.supaBase
+                .from('appraises')
+                .insert(appraise)
+                .then(res => {
+                    if (res.error) throw res.error;
+                })
+        ).pipe(
+            catchError(error => {
+                this.errorService.setError(error.message || 'Unknown error');
+                return throwError(() => error);
+            })
+        );
+    }
 }

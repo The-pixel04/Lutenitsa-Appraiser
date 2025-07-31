@@ -1,9 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { AppraiseService } from '../../core/services/appraise.service';
+import { Router } from '@angular/router';
+import { AuthService } from '../../core/services/auth.service';
 
 @Component({
     selector: 'app-add-appraise',
@@ -18,9 +21,9 @@ import { MatInputModule } from '@angular/material/input';
 })
 export class AddAppraise {
     appraiseForm: FormGroup;
-    step = 0.1;
-    min=0;
-    max=10
+    private appraiseService = inject(AppraiseService);
+    private authService = inject(AuthService);
+    private router = inject(Router);
 
     constructor(private fb: FormBuilder) {
         this.appraiseForm = this.fb.group({
@@ -33,7 +36,15 @@ export class AddAppraise {
 
     onSubmit(): void {
         if (this.appraiseForm.valid) {
-            console.log('Form submitted:', this.appraiseForm.value);
+            const userId = this.authService.getUserId();
+            this.appraiseService.createAppraise({ ...this.appraiseForm.value, userId }).subscribe({
+                next: () => {
+                    this.router.navigate(['/catalog'])
+                },
+                error: (err) => {
+                    return err;
+                }
+            })
         }
     }
 }

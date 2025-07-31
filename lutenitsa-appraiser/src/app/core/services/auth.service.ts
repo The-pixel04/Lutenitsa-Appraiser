@@ -108,4 +108,9 @@ export class AuthService {
             map(() => void 0)
         )
     }
+
+    getUserId(): string | null {
+        const user = this._currentUser();
+        return user ? user.id : null;
+    }
 }
