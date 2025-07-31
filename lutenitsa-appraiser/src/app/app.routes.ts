@@ -2,6 +2,8 @@ import { Routes } from '@angular/router';
 import { Home } from './components/home/home';
 import { AboutUs } from './components/about-us/about-us';
 import { Contact } from './components/contact/contact';
+import { authGuard} from './core/guards/auth.guard';
+import { notAuthGuard } from './core/guards/not-auth.guard';
 
 export const routes: Routes = [
     {
@@ -24,11 +26,13 @@ export const routes: Routes = [
     },
     {
         path: 'login',
-        loadComponent: () => import('./components/login/login').then(c => c.Login)
+        loadComponent: () => import('./components/login/login').then(c => c.Login),
+        canActivate: [notAuthGuard]
     },
     {
         path: 'register',
-        loadComponent: () => import('./components/register/register').then(c => c.Register)
+        loadComponent: () => import('./components/register/register').then(c => c.Register),
+        canActivate: [notAuthGuard]
     },
     {
         path: 'catalog',
@@ -40,6 +44,7 @@ export const routes: Routes = [
     },
     {
         path: 'add-appraise',
-        loadComponent: () => import('./components/add-appraise/add-appraise').then(c => c.AddAppraise)
+        loadComponent: () => import('./components/add-appraise/add-appraise').then(c => c.AddAppraise),
+        canActivate: [authGuard]
     }
 ];

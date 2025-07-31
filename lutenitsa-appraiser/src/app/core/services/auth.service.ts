@@ -86,6 +86,7 @@ export class AuthService {
             tap(() => {
                 this._currentUser.set(null);
                 this._isAuthenticated.set(false);
+                localStorage.removeItem('currentUser');
             }),
             map(() => void 0)
         )
