@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -6,6 +6,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
 	selector: 'app-login',
@@ -19,10 +20,11 @@ import { AuthService } from '../../core/services/auth.service';
 	templateUrl: './login.html',
 	styleUrl: './login.css'
 })
-export class Login {
+export class Login implements OnDestroy {
 	loginForm: FormGroup;
 	private authService = inject(AuthService);
 	private router = inject(Router);
+	private destroy$ = new Subject<void>();
 
 	constructor(private fb: FormBuilder) {
 		this.loginForm = this.fb.group({
@@ -34,7 +36,9 @@ export class Login {
 	onSubmit(): void {
 		if (this.loginForm.valid) {
 			const { email, password } = this.loginForm.value;
-			this.authService.login(email, password).subscribe({
+			this.authService.login(email, password).pipe(
+				takeUntil(this.destroy$)
+			).subscribe({
 				next: () => {
 					this.router.navigate(['/']);
 				},
@@ -43,5 +47,10 @@ export class Login {
 				}
 			});
 		}
+	}
+
+	ngOnDestroy(): void {
+		this.destroy$.next();
+		this.destroy$.complete();
 	}
 }

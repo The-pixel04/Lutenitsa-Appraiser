@@ -22,3 +22,7 @@ A web app for rating and discussing lutenitsa brands. Authenticated users can ad
 - Row-Level Security (enabled)
 - JWT Authentication
 - Realtime API
+
+## 🔄 Implemented Angular Lifecycle Hooks
+
+This web application implements the necessary Angular lifecycle hooks to properly manage initialization, data loading, and cleanup operations. The hooks follow Angular's best practices for component lifecycle management.

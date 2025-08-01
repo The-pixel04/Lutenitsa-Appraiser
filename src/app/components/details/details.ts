@@ -1,9 +1,9 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { AppraiseService } from '../../core/services/appraise.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AsyncPipe, DatePipe, Location } from '@angular/common';
-import { catchError, finalize, Observable, of, tap, throwError } from 'rxjs';
+import { catchError, finalize, Observable, of, Subject, takeUntil } from 'rxjs';
 import { Appraise } from '../../models/appraise.model';
 import { MatButtonModule } from '@angular/material/button';
 import { AuthService } from '../../core/services/auth.service';
@@ -14,8 +14,9 @@ import { AuthService } from '../../core/services/auth.service';
     templateUrl: './details.html',
     styleUrl: './details.css'
 })
-export class Details implements OnInit {
+export class Details implements OnInit, OnDestroy {
     appraise$!: Observable<Appraise>;
+    private destroy$ = new Subject<void>();
     loading: boolean = true;
     private datePipe = new DatePipe('en-US');
     private authService = inject(AuthService);
@@ -23,7 +24,6 @@ export class Details implements OnInit {
     private userId: string | null = null;
     isAuthenticated: boolean = false;
     isOwner: boolean = false;
-
     constructor(
         private route: ActivatedRoute,
         private appraiseService: AppraiseService,
@@ -38,6 +38,7 @@ export class Details implements OnInit {
         this.loading = true;
 
         return this.appraiseService.getAppraise(id).pipe(
+            takeUntil(this.destroy$),
             finalize(() => this.loading = false),
             catchError(err => {
                 return of(err);
@@ -58,7 +59,9 @@ export class Details implements OnInit {
     }
 
     deleteAppraise(id: number): void {
-        this.appraiseService.deleteAppraise(id).subscribe({
+        this.appraiseService.deleteAppraise(id).pipe(
+            takeUntil(this.destroy$)
+        ).subscribe({
             next: () => {
                 this.router.navigate(['/catalog']);
             },
@@ -71,10 +74,16 @@ export class Details implements OnInit {
     async ngOnInit() {
         this.userId = await this.authService.getUserId();
         this.isAuthenticated = this.authService.isAuthenticated();
-        this.appraise$.subscribe(appraise => {
+        this.appraise$.pipe(
+            takeUntil(this.destroy$)
+        ).subscribe(appraise => {
             if (appraise.user_id === this.userId) {
                 this.isOwner = true;
             }
         });
+    }
+    ngOnDestroy(): void {
+        this.destroy$.next();
+        this.destroy$.complete();
     }
 }

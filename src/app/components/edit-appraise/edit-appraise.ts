@@ -7,6 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { AppraiseService } from '../../core/services/appraise.service';
 import { AuthService } from '../../core/services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
     selector: 'app-edit-appraise',
@@ -24,6 +25,7 @@ export class EditAppraise {
     private appraiseService = inject(AppraiseService);
     private authService = inject(AuthService);
     private router = inject(Router);
+    private destroy$ = new Subject<void>();
 
     constructor(private fb: FormBuilder, private route: ActivatedRoute) {
         this.editForm = this.fb.group({
@@ -34,7 +36,9 @@ export class EditAppraise {
         });
 
         const id = Number(this.route.snapshot.paramMap.get('id'));
-        this.appraiseService.getAppraise(id).subscribe({
+        this.appraiseService.getAppraise(id).pipe(
+            takeUntil(this.destroy$)
+        ).subscribe({
             next: (appraise) => {
                 this.editForm.patchValue({
                     brand: appraise.brand,
@@ -47,14 +51,16 @@ export class EditAppraise {
 
     }
 
-   async onSubmit(): Promise<void> {
+    async onSubmit(): Promise<void> {
         const updatedAppraise = {
             ...this.editForm.value,
             user_id: await this.authService.getUserId()
         };
 
         const id = Number(this.route.snapshot.paramMap.get('id'));
-        this.appraiseService.updateAppraise(id, updatedAppraise).subscribe({
+        this.appraiseService.updateAppraise(id, updatedAppraise).pipe(
+            takeUntil(this.destroy$)
+        ).subscribe({
             next: () => {
                 this.router.navigate(['/details', id]);
             },
@@ -62,5 +68,10 @@ export class EditAppraise {
                 console.error('Error updating appraise:', error);
             }
         });
+    }
+
+    ngOnDestroy(): void {
+        this.destroy$.next();
+        this.destroy$.complete();
     }
 }

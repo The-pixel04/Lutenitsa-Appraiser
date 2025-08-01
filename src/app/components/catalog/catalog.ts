@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { Appraise } from '../../models/appraise.model';
 import { RouterModule } from '@angular/router';
 import { AppraiseService } from '../../core/services/appraise.service';
 import { CommonModule } from '@angular/common';
-import { finalize, Observable } from 'rxjs';
+import { finalize, Observable, Subject, takeUntil } from 'rxjs';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AppraiseCard } from "./appraise-card/appraise-card";
 @Component({
@@ -12,8 +12,9 @@ import { AppraiseCard } from "./appraise-card/appraise-card";
     templateUrl: './catalog.html',
     styleUrl: './catalog.css'
 })
-export class Catalog {
+export class Catalog implements OnDestroy{
     appraises$!: Observable<Appraise[]>
+    private destroy$ = new Subject<void>();
     appraises: Appraise[] = [];
     error: string | null = null;
     loading: boolean = true
@@ -24,6 +25,7 @@ export class Catalog {
 
     loadAppraises(): void {
         this.appraiseService.getAllAppraises().pipe(
+            takeUntil(this.destroy$),
             finalize(() => {
                 this.loading = false;
             })
@@ -32,5 +34,10 @@ export class Catalog {
                 this.appraises = data;
             }
         });
+    }
+
+    ngOnDestroy(): void {
+        this.destroy$.next();
+        this.destroy$.complete();
     }
 }
