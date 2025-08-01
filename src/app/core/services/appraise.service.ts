@@ -62,6 +62,24 @@ export class AppraiseService {
         );
     }
 
+    getAppraisesByUserId(userId: string | undefined): Observable<Appraise[]> {
+        return from(
+            this.supaBase
+                .from('appraises')
+                .select('*')
+                .eq('user_id', userId)
+                .then(res => {
+                    if (res.error) throw res.error;
+                    return res.data as Appraise[];
+                })
+        ).pipe(
+            catchError(error => {
+                this.errorService.setError(error.message || 'Unknown error');
+                return throwError(() => error);
+            })
+        );
+    }
+
     createAppraise(appraise: Appraise): Observable<void> {
         return from(
             this.supaBase

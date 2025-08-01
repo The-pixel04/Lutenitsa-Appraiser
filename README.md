@@ -62,7 +62,7 @@ A web app for rating and discussing lutenitsa brands. Authenticated users can ad
 - id, appraisal_id, user_id, comment_text, created_at
 
 **👥 profiles**  
-- id, username, avatar_url
+- id, email
 
 ## 🔄 Implemented Angular Lifecycle Hooks
 

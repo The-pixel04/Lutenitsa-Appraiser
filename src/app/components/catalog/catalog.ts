@@ -5,7 +5,7 @@ import { AppraiseService } from '../../core/services/appraise.service';
 import { CommonModule } from '@angular/common';
 import { finalize, Observable, Subject, takeUntil } from 'rxjs';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { AppraiseCard } from "./appraise-card/appraise-card";
+import { AppraiseCard } from "../appraise-card/appraise-card";
 @Component({
     selector: 'app-catalog',
     imports: [CommonModule, RouterModule, MatProgressSpinnerModule, AppraiseCard],

@@ -51,5 +51,10 @@ export const routes: Routes = [
         path: 'edit-appraise/:id',
         loadComponent: () => import('./components/edit-appraise/edit-appraise').then(c => c.EditAppraise),
         canActivate: [authGuard]
+    },
+    {
+        path: 'profile',
+        loadComponent: () => import('./components/profile/profile').then(c => c.Profile),
+        canActivate: [authGuard]
     }
 ];
