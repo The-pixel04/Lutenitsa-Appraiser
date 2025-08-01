@@ -34,6 +34,7 @@ A web app for rating and discussing lutenitsa brands. Authenticated users can ad
 - Angular 20
 - TypeScript
 - Angular Material
+- Angular Animations
 - RxJS
 
 ### Backend
