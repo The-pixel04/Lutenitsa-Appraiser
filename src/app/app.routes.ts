@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import { Home } from './components/home/home';
 import { AboutUs } from './components/about-us/about-us';
 import { Contact } from './components/contact/contact';
-import { authGuard} from './core/guards/auth.guard';
+import { authGuard } from './core/guards/auth.guard';
 import { notAuthGuard } from './core/guards/not-auth.guard';
 
 export const routes: Routes = [
@@ -45,6 +45,11 @@ export const routes: Routes = [
     {
         path: 'add-appraise',
         loadComponent: () => import('./components/add-appraise/add-appraise').then(c => c.AddAppraise),
+        canActivate: [authGuard]
+    },
+    {
+        path: 'edit-appraise/:id',
+        loadComponent: () => import('./components/edit-appraise/edit-appraise').then(c => c.EditAppraise),
         canActivate: [authGuard]
     }
 ];

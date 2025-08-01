@@ -1,0 +1,30 @@
+<mat-card class="appraise-card">
+  <h2>Edit Appraise</h2>
+  
+  <form [formGroup]="editForm" (ngSubmit)="onSubmit()" class="appraise-form">
+    
+    <mat-form-field appearance="outline">
+      <mat-label>Brand</mat-label>
+      <input matInput formControlName="brand" placeholder="Enter brand name">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Image URL</mat-label>
+      <input matInput formControlName="image" placeholder="Enter image URL">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Rating</mat-label>
+      <input matInput formControlName="rating" placeholder="0-10">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Your Appraise</mat-label>
+      <textarea matInput formControlName="appraise" rows="4" placeholder="Write your review..."></textarea>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit" [disabled]="!editForm.valid">
+      Submit Appraise
+    </button>
+  </form>
+</mat-card>

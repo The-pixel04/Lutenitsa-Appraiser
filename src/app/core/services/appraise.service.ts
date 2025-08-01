@@ -78,6 +78,23 @@ export class AppraiseService {
         );
     }
 
+    updateAppraise(id: number, appraise: Appraise): Observable<void> {
+        return from(
+            this.supaBase
+                .from('appraises')
+                .update(appraise)
+                .eq('id', id)
+                .then(res => {
+                    if (res.error) throw res.error;
+                })
+        ).pipe(
+            catchError(error => {
+                this.errorService.setError(error.message || 'Unknown error');
+                return throwError(() => error);
+            })
+        );
+    }
+
     deleteAppraise(id: number): Observable<void> {
         return from(
             this.supaBase
