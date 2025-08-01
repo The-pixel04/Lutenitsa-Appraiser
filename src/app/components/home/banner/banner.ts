@@ -1,9 +1,8 @@
 import { Component, Input, OnDestroy } from '@angular/core';
-import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-banner',
-  imports: [RouterLink],
+  imports: [],
   templateUrl: './banner.html',
   styleUrl: './banner.css'
 })

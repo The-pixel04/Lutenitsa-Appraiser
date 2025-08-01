@@ -1,9 +1,9 @@
 .banner {
     width: 90%;
-    margin: 2em auto;
+    margin: 3em auto;
     text-align: center;
     padding: 2rem;
-    background: rgba(190, 90, 68, 0.1);
+    background: rgba(233, 200, 193, 0.1);
     border-radius: 16px;
     position: relative;
     overflow: hidden;
@@ -23,10 +23,10 @@
 }
 
 h1 {
-    font-size: 4em;
+    font-size: 4.5em;
     margin: 0 auto;
-    margin-top: 1em;
-    margin-bottom: 1em;
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
     width: 20ch;
     font-weight: 700;
     color: #391010;

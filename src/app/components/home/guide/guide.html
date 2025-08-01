@@ -1,0 +1,51 @@
+<section class="guide-container" @bounce>
+    <h2 class="guide-title">How to Appraise Lutenitsa 🥄✨</h2>
+
+    <div class="step-indicator">
+        @for (step of steps; track $index; let i = $index) {
+        <span [class.active]="i === currentStep" (click)="currentStep = i">
+        </span>
+        }
+    </div>
+
+    <div class="step-content" [@stepAnimation]="currentStep">
+        @if (currentStep === 0) {
+        <div class="step">
+            <div class="step-emoji" @pulse>{{ steps[0].emoji }}</div>
+            <h3>{{ steps[0].title }}</h3>
+            <p>{{ steps[0].description }}</p>
+        </div>
+        }
+        @else if (currentStep === 1) {
+        <div class="step">
+            <div class="step-emoji" @pulse>{{ steps[1].emoji }}</div>
+            <h3>{{ steps[1].title }}</h3>
+            <p>{{ steps[1].description }}</p>
+        </div>
+        }
+        @else if (currentStep === 2) {
+        <div class="step">
+            <div class="step-emoji" @pulse>{{ steps[2].emoji }}</div>
+            <h3>{{ steps[2].title }}</h3>
+            <p>{{ steps[2].description }}</p>
+        </div>
+        }
+        @else if (currentStep === 3) {
+        <div class="step">
+            <div class="step-emoji" @pulse>{{ steps[3].emoji }}</div>
+            <h3>{{ steps[3].title }}</h3>
+            <p>{{ steps[3].description }}</p>
+        </div>
+        }
+    </div>
+
+    <div class="navigation">
+        <button class="nav-button" (click)="prevStep()">← Previous</button>
+        <button class="nav-button primary" (click)="nextStep()">Next →</button>
+    </div>
+
+    <div class="cta">
+        <p>Ready to start your lutenitsa journey?</p>
+        <button class="explore-button" routerLink="/catalog">Explore Catalog Now 🚀</button>
+    </div>
+</section>
