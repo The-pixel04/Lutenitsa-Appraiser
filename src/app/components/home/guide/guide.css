@@ -1,6 +1,6 @@
 .guide-container {
-    max-width: 800px;
-    margin: 2rem auto;
+    width: 80%;
+    margin: 3em auto;
     padding: 2rem;
     background: rgba(233, 200, 193, 0.1);
     border-radius: 16px;
