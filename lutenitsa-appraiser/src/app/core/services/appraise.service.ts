@@ -77,4 +77,22 @@ export class AppraiseService {
             })
         );
     }
+
+    deleteAppraise(id: number): Observable<void> {
+        return from(
+            this.supaBase
+                .from('appraises')
+                .delete()
+                .eq('id', id)
+                .select()
+                .then(res => {
+                    if (res.error) throw res.error;
+                })
+        ).pipe(
+            catchError(error => {
+                this.errorService.setError(error.message || 'Unknown error');
+                return throwError(() => error);
+            })
+        );
+    }
 }
