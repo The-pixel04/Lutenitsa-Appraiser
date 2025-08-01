@@ -5,13 +5,14 @@ A web app for rating and discussing lutenitsa brands. Authenticated users can ad
 
 ## ✨ Features
 - 🔐 Secure user authentication
-- ✍️ Add appraisals (taste/texture/ingredients)
+- ✍️ Add appraisals (brand/rating/evaluation)
 - 💬 Comment on existing appraisals
 - 📱 Mobile-friendly (Angular Material)
+- 🍥 Responsive design
 
 ## 🛠️ Tech Stack
 ### Frontend
-- Angular 16+
+- Angular 20
 - TypeScript
 - Angular Material
 - RxJS
