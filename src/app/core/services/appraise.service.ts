@@ -1,11 +1,10 @@
 import { inject, Injectable } from "@angular/core";
-import { environment } from "../../../environments/environment.development";
-import { createClient, SupabaseClient } from "@supabase/supabase-js";
 import { catchError, forkJoin, from, map, Observable, throwError } from "rxjs";
 import { Appraise } from "../../models/appraise.model";
 import { ErrorService } from "./error.service";
 import { ExtendedAppraise } from "../../models/extendedAppraise.model";
 import { Comment } from "../../models/comment.model";
+import { SupabaseService } from "./supabase.service";
 
 
 @Injectable({
@@ -13,19 +12,9 @@ import { Comment } from "../../models/comment.model";
 })
 
 export class AppraiseService {
-    private apiUrl = environment.apiUrl;
-    private supaBase: SupabaseClient;
-    private apiKey = environment.apiKey;
     private errorService = inject(ErrorService);
 
-    constructor() {
-        this.supaBase = createClient(this.apiUrl, this.apiKey, {
-            auth: {
-                autoRefreshToken: false,
-                persistSession: true,
-                detectSessionInUrl: true
-            }
-        })
+    constructor(private supaBaseService: SupabaseService) {
     }
 
     getAllAppraises(page: number, pageSize: number): Observable<{ data: Appraise[], count: number }> {
@@ -33,7 +22,7 @@ export class AppraiseService {
         const to = fromNum + pageSize - 1;
 
         return from(
-            this.supaBase
+            this.supaBaseService.getClient()
                 .from('appraises')
                 .select('*', { count: 'exact' })
                 .range(fromNum, to)
@@ -54,7 +43,7 @@ export class AppraiseService {
 
     getAppraiseWithComments(id: number): Observable<ExtendedAppraise> {
         const appraise$ = from(
-            this.supaBase
+            this.supaBaseService.getClient()
                 .from('appraises')
                 .select('*')
                 .eq('id', id)
@@ -66,7 +55,7 @@ export class AppraiseService {
         );
 
         const comments$ = from(
-            this.supaBase
+            this.supaBaseService.getClient()
                 .from('comments')
                 .select('*')
                 .eq('appraiseId', id)
@@ -88,7 +77,7 @@ export class AppraiseService {
 
     getAppraisesByUserId(userId: string | undefined): Observable<Appraise[]> {
         return from(
-            this.supaBase
+            this.supaBaseService.getClient()
                 .from('appraises')
                 .select('*')
                 .eq('user_id', userId)
@@ -106,7 +95,7 @@ export class AppraiseService {
 
     createAppraise(appraise: Appraise): Observable<void> {
         return from(
-            this.supaBase
+            this.supaBaseService.getClient()
                 .from('appraises')
                 .insert(appraise)
                 .then(res => {
@@ -122,7 +111,7 @@ export class AppraiseService {
 
     updateAppraise(id: number, appraise: Appraise): Observable<void> {
         return from(
-            this.supaBase
+            this.supaBaseService.getClient()
                 .from('appraises')
                 .update(appraise)
                 .eq('id', id)
@@ -139,7 +128,7 @@ export class AppraiseService {
 
     deleteAppraise(id: number): Observable<void> {
         return from(
-            this.supaBase
+            this.supaBaseService.getClient()
                 .from('appraises')
                 .delete()
                 .eq('id', id)

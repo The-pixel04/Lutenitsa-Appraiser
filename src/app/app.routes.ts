@@ -18,11 +18,11 @@ export const routes: Routes = [
     },
     {
         path: 'aboutUs',
-        component: AboutUs
+        loadComponent: () => import('./components/about-us/about-us').then(c => c.AboutUs),
     },
     {
         path: 'contact',
-        component: Contact
+        loadComponent: () => import('./components/contact/contact').then(c => c.Contact),
     },
     {
         path: 'login',
@@ -35,8 +35,8 @@ export const routes: Routes = [
         canActivate: [notAuthGuard]
     },
     {
-        path: 'catalog',
-        loadComponent: () => import('./components/catalog/catalog').then(c => c.Catalog)
+        path: 'catalog/:page',
+        loadComponent: () => import('./components/catalog/catalog').then(c => c.Catalog),
     },
     {
         path: 'details/:id',

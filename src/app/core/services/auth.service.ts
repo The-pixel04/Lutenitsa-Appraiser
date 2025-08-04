@@ -1,43 +1,28 @@
 import { Injectable, signal, inject } from "@angular/core";
-import { environment } from "../../../environments/environment.development";
 import { User } from "../../models/user.model";
 import { catchError, from, map, Observable, tap, throwError } from "rxjs";
-import { createClient, SupabaseClient } from "@supabase/supabase-js";
 import { ErrorService } from "./error.service";
+import { SupabaseService } from "./supabase.service";
 
 @Injectable({
     providedIn: 'root'
 })
 
 export class AuthService {
-    private apiUrl = environment.apiUrl;
-    private apiKey = environment.apiKey;
     private _isAuthenticated = signal<boolean>(false);
     private _currentUser = signal<User | null>(null);
-    private supaBase: SupabaseClient;
     private errorService = inject(ErrorService);
 
     public isAuthenticated = this._isAuthenticated.asReadonly();
     public currentUser = this._currentUser.asReadonly();
 
-    constructor() {
+    constructor(private supaBase: SupabaseService) {
         const savedUser = localStorage.getItem('currentUser');
         if (savedUser) {
             const user = JSON.parse(savedUser);
             this._currentUser.set(user);
             this._isAuthenticated.set(true);
         }
-
-        this.supaBase = createClient(
-            this.apiUrl,
-            this.apiKey,
-            {
-                auth: {
-                    detectSessionInUrl: false,
-                    autoRefreshToken: false
-                }
-            }
-        );
     }
 
     register(email: string, password: string, rePassword: string): Observable<User> {
@@ -47,7 +32,7 @@ export class AuthService {
         }
 
         return from(
-            this.supaBase.auth.signUp({
+            this.supaBase.getClient().auth.signUp({
                 email,
                 password,
             })
@@ -73,7 +58,7 @@ export class AuthService {
 
     login(email: string, password: string): Observable<User> {
         return from(
-            this.supaBase.auth.signInWithPassword({
+            this.supaBase.getClient().auth.signInWithPassword({
                 email,
                 password,
             })
@@ -98,7 +83,7 @@ export class AuthService {
 
     logout(): Observable<void> {
         return from(
-            this.supaBase.auth.signOut()
+            this.supaBase.getClient().auth.signOut()
         ).pipe(
             tap(() => {
                 this._currentUser.set(null);
@@ -110,7 +95,7 @@ export class AuthService {
     }
 
     async getUserId(): Promise<string | null> {
-        const { data: { user } } = await this.supaBase.auth.getUser();
+        const { data: { user } } = await this.supaBase.getClient().auth.getUser();
         return user ? user.id : null;
     }
 }

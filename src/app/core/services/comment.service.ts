@@ -1,32 +1,21 @@
 import { inject, Injectable } from "@angular/core";
-import { environment } from "../../../environments/environment.development";
-import { createClient, SupabaseClient } from "@supabase/supabase-js";;
 import { ErrorService } from "./error.service";
 import { catchError, from, Observable, throwError } from "rxjs";
+import { SupabaseService } from "./supabase.service";
 
 @Injectable({
     providedIn: 'root'
 })
 
 export class CommentService {
-    private apiUrl = environment.apiUrl;
-    private supaBase: SupabaseClient;
-    private apiKey = environment.apiKey;
     private errorService = inject(ErrorService);
 
-    constructor() {
-        this.supaBase = createClient(this.apiUrl, this.apiKey, {
-            auth: {
-                autoRefreshToken: false,
-                persistSession: true,
-                detectSessionInUrl: true
-            }
-        })
-    }
+    constructor(private supaBase: SupabaseService) { }
 
-    addComment(appraiseId: number, comment: string, userId: string, email:string): Observable<void> {
+
+    addComment(appraiseId: number, comment: string, userId: string, email: string): Observable<void> {
         return from(
-            this.supaBase
+            this.supaBase.getClient()
                 .from('comments')
                 .insert([{ appraiseId, comment, userId, email }])
                 .then(res => {

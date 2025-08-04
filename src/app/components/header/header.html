@@ -8,7 +8,7 @@
             </button>
 
             <div class="nav-links" [class.mobile-active]="menuOpen">
-                <a routerLink="/catalog" routerLinkActive="active" (click)="closeMenu()">Catalog</a>
+                <a routerLink="/catalog/1" routerLinkActive="active" (click)="closeMenu()">Catalog</a>
                 @if(isAuthenticated()){
                 <a routerLink="/profile" routerLinkActive="active" (click)="closeMenu()">Profile</a>
                 }@else{

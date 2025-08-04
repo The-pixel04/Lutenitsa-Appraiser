@@ -1,6 +1,6 @@
-import { Component, OnDestroy, ViewChild } from '@angular/core';
+import { Component, inject, OnDestroy, ViewChild } from '@angular/core';
 import { Appraise } from '../../models/appraise.model';
-import { RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { AppraiseService } from '../../core/services/appraise.service';
 import { CommonModule } from '@angular/common';
 import { finalize, Observable, Subject, takeUntil } from 'rxjs';
@@ -16,6 +16,7 @@ import { MatPaginator } from '@angular/material/paginator';
 export class Catalog implements OnDestroy {
     appraises$!: Observable<Appraise[]>
     private destroy$ = new Subject<void>();
+    private router = inject(Router);
     appraises: Appraise[] = [];
     error: string | null = null;
     loading: boolean = true;
@@ -25,8 +26,16 @@ export class Catalog implements OnDestroy {
 
     @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-    constructor(private appraiseService: AppraiseService) {
-        this.loadAppraises();
+    constructor(private appraiseService: AppraiseService, private route: ActivatedRoute) {
+        this.route.params.subscribe(params => {
+            this.currentPage = +params['page'] || 1;
+            
+            if (this.paginator) {
+                this.paginator.pageIndex = this.currentPage-1;
+            }
+
+            this.loadAppraises();
+        });
     }
 
     loadAppraises(): void {
@@ -46,6 +55,7 @@ export class Catalog implements OnDestroy {
     onPageChange(event: any): void {
         this.currentPage = event.pageIndex + 1;
         this.pageSize = event.pageSize;
+        this.router.navigate(['/catalog', this.currentPage]);
         this.loadAppraises();
     }
 

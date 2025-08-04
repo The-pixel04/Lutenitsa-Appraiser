@@ -56,33 +56,6 @@ p {
     will-change: transform
 }
 
-.cta-button {
-    background: #be5a44;
-    color: white;
-    border: none;
-    padding: 0.8rem 2rem;
-    border-radius: 10px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: all 0.3s;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.cta-button:hover {
-    background: #9c3c25;
-    transform: translateY(-3px);
-}
-
-.arrow {
-    transition: transform 0.3s;
-}
-
-.cta-button:hover .arrow {
-    transform: translateX(4px);
-}
-
 @keyframes shine {
     100% {
         left: 100%;
