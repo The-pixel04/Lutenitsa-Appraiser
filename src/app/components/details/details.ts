@@ -2,7 +2,7 @@ import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { AppraiseService } from '../../core/services/appraise.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { AsyncPipe, DatePipe, JsonPipe, Location } from '@angular/common';
+import { AsyncPipe, DatePipe, Location } from '@angular/common';
 import { catchError, finalize, Observable, of, Subject, takeUntil } from 'rxjs';
 import { MatButtonModule } from '@angular/material/button';
 import { AuthService } from '../../core/services/auth.service';
@@ -19,8 +19,7 @@ import { CommentService } from '../../core/services/comment.service';
         MatButtonModule,
         RouterLink,
         ReactiveFormsModule,
-        CommentCard,
-        JsonPipe],
+        CommentCard],
     templateUrl: './details.html',
     styleUrl: './details.css'
 })

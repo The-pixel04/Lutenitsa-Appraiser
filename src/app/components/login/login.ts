@@ -4,9 +4,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { Router, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
 import { Subject, takeUntil } from 'rxjs';
+import { Location } from '@angular/common';
 
 @Component({
 	selector: 'app-login',
@@ -23,7 +24,7 @@ import { Subject, takeUntil } from 'rxjs';
 export class Login implements OnDestroy {
 	loginForm: FormGroup;
 	private authService = inject(AuthService);
-	private router = inject(Router);
+	private location = inject(Location);
 	private destroy$ = new Subject<void>();
 
 	constructor(private fb: FormBuilder) {
@@ -40,7 +41,7 @@ export class Login implements OnDestroy {
 				takeUntil(this.destroy$)
 			).subscribe({
 				next: () => {
-					this.router.navigate(['/']);
+					this.location.back();
 				},
 				error: (err) => {
 					console.error('Login failed', err);

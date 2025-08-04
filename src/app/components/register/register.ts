@@ -4,9 +4,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { Router, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
 import { Subject, takeUntil } from 'rxjs';
+import { Location } from '@angular/common';
 
 @Component({
     selector: 'app-register',
@@ -23,8 +24,8 @@ import { Subject, takeUntil } from 'rxjs';
 export class Register implements OnDestroy {
     registerForm: FormGroup;
     private authService = inject(AuthService);
-    private router = inject(Router);
     private destroy$ = new Subject<void>();
+    private location = inject(Location);
 
     constructor(private fb: FormBuilder) {
         this.registerForm = this.fb.group({
@@ -43,7 +44,7 @@ export class Register implements OnDestroy {
                 takeUntil(this.destroy$)
             ).subscribe({
                 next: () => {
-                    this.router.navigate(['/']);
+                    this.location.back()
                 },
                 error: (err) => {
                     console.error('Registration failed', err);

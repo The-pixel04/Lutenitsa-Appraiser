@@ -1,6 +1,6 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
@@ -26,7 +26,7 @@ import { AuthService } from '../../core/services/auth.service';
 })
 export class Header {
     protected authService = inject(AuthService);
-    private router = inject(Router);
+    private location = inject(Location);
 
     readonly isAuthenticated = this.authService.isAuthenticated;
     readonly currentUser = this.authService.currentUser;
@@ -36,7 +36,7 @@ export class Header {
     logOut(): void {
         this.authService.logout().subscribe({
             next: () => {
-                this.router.navigate(['/']);
+                this.location.back();
             },
             error: (err) => {
                 console.error('Logout failed', err);

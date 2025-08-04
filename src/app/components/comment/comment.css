@@ -1,5 +1,5 @@
 .comment-item {
-    background-color: #fdf7f0;
+    background-color: #fdeaea;
     border: 1px solid #f0e0d6;
     border-radius: 10px;
     padding: 1rem;
@@ -9,12 +9,12 @@
 .comment-item p {
     margin: 0 0 0.5rem 0;
     font-size: 1rem;
-    color: #333;
+    color: #292929;
     word-wrap: break-word;
 }
 
 .comment-item small {
     display: block;
-    color: #888;
+    color: #636363;
     font-size: 0.8rem;
 }

@@ -40,7 +40,7 @@ input[matInput] {
 }
 
 button[mat-raised-button] {
-    background: #d45437;
+    background: #d32f2f;
     color: white;
     border-radius: 10px;
     width: 100%;
