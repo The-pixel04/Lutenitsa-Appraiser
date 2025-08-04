@@ -4,4 +4,5 @@ export interface Comment {
     userId: string;
     appraiseId: number;
     comment: string;
+    email:string;
 }

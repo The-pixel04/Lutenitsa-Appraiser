@@ -1,9 +1,11 @@
 import { inject, Injectable } from "@angular/core";
 import { environment } from "../../../environments/environment.development";
 import { createClient, SupabaseClient } from "@supabase/supabase-js";
-import { catchError, from, Observable, throwError } from "rxjs";
+import { catchError, forkJoin, from, map, Observable, throwError } from "rxjs";
 import { Appraise } from "../../models/appraise.model";
 import { ErrorService } from "./error.service";
+import { ExtendedAppraise } from "../../models/extendedAppraise.model";
+import { Comment } from "../../models/comment.model";
 
 
 @Injectable({
@@ -43,8 +45,8 @@ export class AppraiseService {
         );
     }
 
-    getAppraise(id: number): Observable<Appraise> {
-        return from(
+    getAppraiseWithComments(id: number): Observable<ExtendedAppraise> {
+        const appraise$ = from(
             this.supaBase
                 .from('appraises')
                 .select('*')
@@ -54,7 +56,22 @@ export class AppraiseService {
                     if (res.error) throw res.error;
                     return res.data as Appraise;
                 })
-        ).pipe(
+        );
+
+        const comments$ = from(
+            this.supaBase
+                .from('comments')
+                .select('*')
+                .eq('appraiseId', id)
+                .order('created_at', { ascending: false })
+                .then(res => {
+                    if (res.error) throw res.error;
+                    return res.data as Comment[];
+                })
+        );
+
+        return forkJoin([appraise$, comments$]).pipe(
+            map(([appraise, comments]) => ({ ...appraise, comments: comments ?? [] })),
             catchError(error => {
                 this.errorService.setError(error.message || 'Unknown error');
                 return throwError(() => error);

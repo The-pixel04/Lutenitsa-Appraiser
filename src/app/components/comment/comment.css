@@ -1,0 +1,20 @@
+.comment-item {
+    background-color: #fdf7f0;
+    border: 1px solid #f0e0d6;
+    border-radius: 10px;
+    padding: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.comment-item p {
+    margin: 0 0 0.5rem 0;
+    font-size: 1rem;
+    color: #333;
+    word-wrap: break-word;
+}
+
+.comment-item small {
+    display: block;
+    color: #888;
+    font-size: 0.8rem;
+}

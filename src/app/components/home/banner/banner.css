@@ -131,7 +131,7 @@ p {
     animation-delay: 2s;
 }
 
-@media(max-width:450px) {
+@media(max-width:780px) {
     .banner {
         width: 84%;
     }

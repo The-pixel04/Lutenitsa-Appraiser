@@ -3,6 +3,7 @@
     <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
 </div>
 }
+
 @if (appraise$ | async; as appraise) {
 <div class="appraise-details">
     <div class="head">
@@ -38,10 +39,30 @@
             Edit
         </button>
 
-        <button mat-button (click)="deleteAppraise(appraise.id)"> 
+        <button mat-button (click)="deleteAppraise(appraise.id)">
             Delete
         </button>
         }
+    </div>
+
+    <div class="comments-section">
+        <h3>Comments</h3>
+
+        @if(isAuthenticated){
+        <form (ngSubmit)="submitComment()" class="comment-form" [formGroup]="commentForm">
+            <textarea formControlName="comment" placeholder="Leave a comment..." required></textarea>
+            <button type="submit">Post</button>
+        </form>
+        }
+
+        <div class="comments-list">
+            @for (comment of appraise.comments ; track comment.id) {
+            <app-comment [comment]="comment"></app-comment>
+            }@empty {
+            <p>No comments yet. Be the first!</p>
+            }
+        </div>
+
     </div>
 </div>
 }

@@ -36,7 +36,7 @@ export class EditAppraise {
         });
 
         const id = Number(this.route.snapshot.paramMap.get('id'));
-        this.appraiseService.getAppraise(id).pipe(
+        this.appraiseService.getAppraiseWithComments(id).pipe(
             takeUntil(this.destroy$)
         ).subscribe({
             next: (appraise) => {
