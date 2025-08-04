@@ -40,3 +40,8 @@
         align-items: center;
     }
 }
+
+mat-paginator {
+    background: transparent;
+    margin-top: 20px;
+}

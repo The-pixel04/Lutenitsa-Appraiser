@@ -28,14 +28,21 @@ export class AppraiseService {
         })
     }
 
-    getAllAppraises(): Observable<Appraise[]> {
+    getAllAppraises(page: number, pageSize: number): Observable<{ data: Appraise[], count: number }> {
+        const fromNum = (page - 1) * pageSize;
+        const to = fromNum + pageSize - 1;
+
         return from(
             this.supaBase
                 .from('appraises')
-                .select('*')
+                .select('*', { count: 'exact' })
+                .range(fromNum, to)
                 .then(res => {
                     if (res.error) throw res.error;
-                    return res.data as Appraise[];
+                    return {
+                        data: res.data as Appraise[],
+                        count: res.count || 0
+                    };
                 })
         ).pipe(
             catchError(error => {
