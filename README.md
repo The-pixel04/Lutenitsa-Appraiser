@@ -36,7 +36,7 @@ A web app for rating and discussing lutenitsa brands. Authenticated users can ad
 - Angular Material
 - Angular Animations
 - RxJS
--NgRx
+- NgRx
 
 ### Backend
 - Supabase (PostgreSQL)
