@@ -12,7 +12,7 @@ if (!env) {
     throw new Error('.env file is missing or invalid');
 }
 
-const targetPath = path.resolve(__dirname, '../src/environments/environment.ts');
+const targetPath = path.resolve(__dirname, '../src/environments/environment');
 
 const envFileContent = `export const environment = {
   production: true,
