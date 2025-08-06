@@ -36,6 +36,7 @@ A web app for rating and discussing lutenitsa brands. Authenticated users can ad
 - Angular Material
 - Angular Animations
 - RxJS
+-NgRx
 
 ### Backend
 - Supabase (PostgreSQL)
@@ -57,7 +58,7 @@ A web app for rating and discussing lutenitsa brands. Authenticated users can ad
 
 ### 🗄️ Database Tables
 **📦 appraisals**
-- id, brand_name, rating, texture, taste, user_id, created_at
+- id, brand_name, rating, appraise, user_id, created_at
 
 **💭 comments**  
 - id, appraisal_id, user_id, comment_text, created_at

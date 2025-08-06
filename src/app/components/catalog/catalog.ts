@@ -1,55 +1,52 @@
-import { Component, inject, OnDestroy, ViewChild } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Appraise } from '../../models/appraise.model';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { AppraiseService } from '../../core/services/appraise.service';
 import { CommonModule } from '@angular/common';
-import { finalize, Observable, Subject, takeUntil } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AppraiseCard } from "../appraise-card/appraise-card";
 import { MatPaginator } from '@angular/material/paginator';
+import { Store } from '@ngrx/store';
+import { AppSate } from '../../core/store';
+import { selectAppraiseLoading, selectAppraises } from '../../core/store/appraises/appraise.selector';
+import { loadAppraises, loadAppraisesReset } from '../../core/store/appraises/appraise.actions';
+
 @Component({
     selector: 'app-catalog',
     imports: [CommonModule, RouterModule, MatProgressSpinnerModule, AppraiseCard, MatPaginator],
     templateUrl: './catalog.html',
     styleUrl: './catalog.css'
 })
-export class Catalog implements OnDestroy {
+
+export class Catalog implements OnInit, OnDestroy {
     appraises$!: Observable<Appraise[]>
     private destroy$ = new Subject<void>();
     private router = inject(Router);
-    appraises: Appraise[] = [];
     error: string | null = null;
-    loading: boolean = true;
-    totalCount: number = 0;
+    loading!: Observable<boolean> 
+
     pageSize: number = 12;
     currentPage: number = 1;
 
     @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-    constructor(private appraiseService: AppraiseService, private route: ActivatedRoute) {
+    constructor(private route: ActivatedRoute, private store: Store<AppSate>) {
         this.route.params.subscribe(params => {
             this.currentPage = +params['page'] || 1;
-            
+
             if (this.paginator) {
-                this.paginator.pageIndex = this.currentPage-1;
+                this.paginator.pageIndex = this.currentPage - 1;
             }
 
-            this.loadAppraises();
+            this.appraises$ = this.store.select(selectAppraises);
+            this.loading = this.store.select(selectAppraiseLoading)
+
+            this.loadAppraises()
         });
     }
 
     loadAppraises(): void {
-        this.appraiseService.getAllAppraises(this.currentPage, this.pageSize).pipe(
-            takeUntil(this.destroy$),
-            finalize(() => {
-                this.loading = false;
-            })
-        ).subscribe({
-            next: data => {
-                this.appraises = data.data;
-                this.totalCount = data.count;
-            }
-        });
+        this.store.dispatch(loadAppraises({ page: this.currentPage, pageSize: this.pageSize }))
     }
 
     onPageChange(event: any): void {
@@ -59,8 +56,12 @@ export class Catalog implements OnDestroy {
         this.loadAppraises();
     }
 
+    ngOnInit(): void {
+    }
+
     ngOnDestroy(): void {
         this.destroy$.next();
         this.destroy$.complete();
+        this.store.dispatch(loadAppraisesReset())
     }
 }

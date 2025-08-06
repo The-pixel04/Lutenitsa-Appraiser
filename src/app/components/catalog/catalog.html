@@ -1,13 +1,13 @@
 <div class="appraise-container">
     <h2>Lutenitsa Appraises</h2>
 
-    @if (loading) {
+    @if (loading|async) {
     <div class="spinner">
         <mat-progress-spinner strokeWidth="5" mode="indeterminate" diameter="70"></mat-progress-spinner>
     </div>
     } @else {
     <div class="appraise-grid">
-        @for (appraise of appraises; track appraise.id) {
+        @for (appraise of appraises$ |async; track appraise.id) {
         <app-appraise-card [appraise]="appraise"></app-appraise-card>
         } @empty {
         <p>No appraises found</p>
@@ -16,5 +16,5 @@
     }
 </div>
 
-<mat-paginator [length]="totalCount" [pageSize]="pageSize" [pageIndex]="currentPage - 1" (page)="onPageChange($event)">
+<mat-paginator [pageSize]="pageSize" [pageIndex]="currentPage - 1" (page)="onPageChange($event)">
 </mat-paginator>
