@@ -1,24 +1,12 @@
-import fs from 'fs/promises';
-import dotenv from 'dotenv';
-import path from 'path';
-import { fileURLToPath } from 'url';
+import 'dotenv/config';
+import { writeFile } from 'fs/promises';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-const env = dotenv.config().parsed;
-
-if (!env) {
-    throw new Error('.env file is missing or invalid');
-}
-
-const targetPath = path.resolve(__dirname, '../src/environments/environment.ts');
-
-const envFileContent = `export const environment = {
-  production: true,
-  apiKey: '${env.API_KEY}',
-  apiUrl: '${env.API_URL}'
+const env = {
+    production: true,
+    apiUrl: process.env.API_URL,
+    apiKey: process.env.API_KEY
 };
-`;
 
-await fs.writeFile(targetPath, envFileContent);
+const content = `export const environment = ${JSON.stringify(env, null, 2)};\n`;
+
+await writeFile('./src/environments/environment.ts', content);

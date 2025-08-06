@@ -21,7 +21,7 @@ yarn-error.log
 *.launch
 .settings/
 *.sublime-workspace
-/src/environments/environment.prod.ts
+/src/environments/environment.ts
 /src/environments/environment.development.ts
 environment.development.ts
 
