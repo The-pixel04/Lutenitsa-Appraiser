@@ -23,10 +23,11 @@ export class Catalog implements OnInit, OnDestroy {
     private destroy$ = new Subject<void>();
     private router = inject(Router);
     error: string | null = null;
-    loading!: Observable<boolean> 
+    loading!: Observable<boolean>
 
     pageSize: number = 12;
     currentPage: number = 1;
+    totalCount: number = 1
 
     @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -57,6 +58,11 @@ export class Catalog implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
+        this.appraises$.subscribe({
+            next: (data) => {
+                this.totalCount = data.length
+            }
+        })
     }
 
     ngOnDestroy(): void {
