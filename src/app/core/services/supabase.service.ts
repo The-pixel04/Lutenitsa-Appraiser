@@ -10,11 +10,11 @@ export class SupabaseService {
     this.client = createClient(
       environment.apiUrl,
       environment.apiKey, {
-        auth: {
-          persistSession: false,
-          autoRefreshToken: false
-        }
+      auth: {
+        persistSession: false,
+        autoRefreshToken: false
       }
+    }
     );
   }
 
