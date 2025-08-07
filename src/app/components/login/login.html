@@ -1,17 +1,23 @@
 <mat-card class="auth-card" @fadeIn>
   <h2>Login</h2>
-  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <mat-form-field appearance="outline">
       <mat-label>Email</mat-label>
       <input matInput formControlName="email" type="email" placeholder="examle@email.com" />
     </mat-form-field>
+    @if(emailError){
+    <p class="error">{{emailErrorMessage}}</p>
+    }
 
     <mat-form-field appearance="outline">
       <mat-label>Password</mat-label>
       <input matInput formControlName="password" type="password" placeholder="*****" />
     </mat-form-field>
+    @if(passwordError){
+    <p class="error">{{passwordErrorMessage}}</p>
+    }
 
-    <button mat-raised-button color="primary" type="submit" [disabled]="!loginForm.valid">Login</button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid">Login</button>
 
     <p class="register-link">
       Do not have an account?

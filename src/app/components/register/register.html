@@ -2,24 +2,30 @@
     <h2>Register</h2>
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
         <mat-form-field appearance="outline">
-            <mat-label>Username</mat-label>
-            <input matInput formControlName="username" />
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
             <mat-label>Email</mat-label>
             <input matInput formControlName="email" type="email" placeholder="examle@email.com" />
         </mat-form-field>
+        @if(emailError){
+        <p class="error">{{emailErrorMessage}}</p>
+        }
 
-        <mat-form-field appearance="outline">
-            <mat-label>Password</mat-label>
-            <input matInput formControlName="password" type="password" placeholder="*****" />
-        </mat-form-field>
+        <div formGroupName="passwords">
+            <mat-form-field appearance="outline">
+                <mat-label>Password</mat-label>
+                <input matInput formControlName="password" type="password" placeholder="*****" />
+            </mat-form-field>
+            @if(passwordsError){
+            <p class="error">{{passwordErrorMessage}}</p>
+            }
 
-        <mat-form-field appearance="outline">
-            <mat-label>Confirm Password</mat-label>
-            <input matInput formControlName="confirmPassword" type="password" />
-        </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Confirm Password</mat-label>
+                <input matInput formControlName="confirmPassword" type="password" />
+            </mat-form-field>
+            @if(passwordsError){
+            <p class="error">{{confirmPasswordErrorMessage}}</p>
+            }
+        </div>
 
         <button mat-raised-button color="accent" type="submit" [disabled]="!registerForm.valid">Register</button>
 

@@ -1,5 +1,5 @@
 import { Component, inject, OnDestroy } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -8,6 +8,7 @@ import { RouterLink } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
 import { Subject, takeUntil } from 'rxjs';
 import { Location } from '@angular/common';
+import { LoginFormService } from '../../utils/forms/login.form';
 
 @Component({
 	selector: 'app-login',
@@ -22,32 +23,44 @@ import { Location } from '@angular/common';
 	styleUrl: './login.css'
 })
 export class Login implements OnDestroy {
-	loginForm: FormGroup;
+	form: FormGroup;
+	email: AbstractControl | null;
+	password: AbstractControl | null;
+	emailErrorMessage: string = '';
+	passwordErrorMessage: string = '';
 	private authService = inject(AuthService);
 	private location = inject(Location);
 	private destroy$ = new Subject<void>();
 
-	constructor(private fb: FormBuilder) {
-		this.loginForm = this.fb.group({
-			email: ['', [Validators.required, Validators.email]],
-			password: ['', [Validators.required, Validators.minLength(5)]]
-		});
+
+	constructor(private loginForm: LoginFormService) {
+		this.form = this.loginForm.createForm();
+		this.email = this.loginForm.getEmail(this.form);
+		this.password = this.loginForm.getPassword(this.form);
+	}
+
+	get emailError(): boolean {
+		this.emailErrorMessage = this.loginForm.getEmailErrorMessage(this.email);
+		return this.email?.invalid && (this.email?.dirty || this.email?.touched) || false
+	}
+
+	get passwordError(): boolean {
+		this.passwordErrorMessage = this.loginForm.getPasswordErrorMessage(this.password);
+		return this.password?.invalid && (this.password?.dirty || this.password?.touched) || false
 	}
 
 	onSubmit(): void {
-		if (this.loginForm.valid) {
-			const { email, password } = this.loginForm.value;
-			this.authService.login(email, password).pipe(
-				takeUntil(this.destroy$)
-			).subscribe({
-				next: () => {
-					this.location.back();
-				},
-				error: (err) => {
-					console.error('Login failed', err);
-				}
-			});
-		}
+		const { email, password } = this.form.value;
+		this.authService.login(email, password).pipe(
+			takeUntil(this.destroy$)
+		).subscribe({
+			next: () => {
+				this.location.back();
+			},
+			error: (err) => {
+				console.error('Login failed', err);
+			}
+		});
 	}
 
 	ngOnDestroy(): void {

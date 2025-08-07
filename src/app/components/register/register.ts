@@ -1,5 +1,5 @@
 import { Component, inject, OnDestroy } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -8,6 +8,7 @@ import { RouterLink } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
 import { Subject, takeUntil } from 'rxjs';
 import { Location } from '@angular/common';
+import { RegisterFormService } from '../../utils/forms/register.form';
 
 @Component({
     selector: 'app-register',
@@ -23,41 +24,49 @@ import { Location } from '@angular/common';
 })
 export class Register implements OnDestroy {
     registerForm: FormGroup;
+    email: AbstractControl | null;
+    passwords: FormGroup | null;
+    password: AbstractControl | null;
+    confirmPassword: AbstractControl | null;
+    emailErrorMessage: string = '';
+    passwordErrorMessage: string = '';
+    confirmPasswordErrorMessage: string = '';
     private authService = inject(AuthService);
     private destroy$ = new Subject<void>();
     private location = inject(Location);
 
-    constructor(private fb: FormBuilder) {
-        this.registerForm = this.fb.group({
-            username: ['', Validators.required],
-            email: ['', [Validators.required, Validators.email]],
-            password: ['', [Validators.required, Validators.minLength(5)]],
-            confirmPassword: ['', Validators.required,]
-        }, { validators: this.passwordMatchValidator });
+    constructor(private form: RegisterFormService) {
+        this.registerForm = this.form.createForm();
+        this.email = this.form.getEmail(this.registerForm);
+        this.passwords = this.form.getPasswords(this.registerForm);
+        this.password = this.passwords.get('password');
+        this.confirmPassword = this.passwords.get('confirmPassword')
+    }
 
+    get emailError(): boolean {
+        this.emailErrorMessage = this.form.getEmailErrorMessage(this.email);
+        return this.email?.invalid && (this.email?.dirty || this.email?.touched) || false
+    }
+
+    get passwordsError(): boolean {
+        this.passwordErrorMessage = this.form.getPasswordErrorMessage(this.password);
+        this.confirmPasswordErrorMessage = this.form.getRePasswordErrorMessage(this.confirmPassword);
+        return this.passwords?.invalid && (this.passwords?.dirty || this.passwords?.touched) || false
     }
 
     onSubmit(): void {
-        if (this.registerForm.valid) {
-            const { username, email, password, confirmPassword } = this.registerForm.value;
-            this.authService.register(email, password, confirmPassword).pipe(
-                takeUntil(this.destroy$)
-            ).subscribe({
-                next: () => {
-                    this.location.back()
-                },
-                error: (err) => {
-                    console.error('Registration failed', err);
-                }
-            });
-        }
-    }
-
-    passwordMatchValidator(formGroup: FormGroup) {
-        const password = formGroup.get('password')?.value;
-        const confirmPassword = formGroup.get('confirmPassword')?.value;
-
-        return password === confirmPassword ? null : { mismatch: true };
+        const { email } = this.registerForm.value;
+        const { password, confirmPassword } = this.registerForm.value.passwords;
+        this.authService.register(email, password, confirmPassword).pipe(
+            takeUntil(this.destroy$)
+        ).subscribe({
+            next: () => {
+                this.location.back()
+            },
+            error: (err) => {
+                console.error('Registration failed', err);
+            }
+        });
     }
 
     ngOnDestroy(): void {
