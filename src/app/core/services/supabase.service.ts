@@ -11,7 +11,7 @@ export class SupabaseService {
             environment.apiUrl,
             environment.apiKey, {
             auth: {
-                persistSession: false,
+                persistSession: true,
                 autoRefreshToken: false
             }
         }

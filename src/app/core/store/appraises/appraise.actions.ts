@@ -6,7 +6,7 @@ export const loadAppraises = createAction('[Appraises] Load Appraises',
     props<{ page: number; pageSize: number }>()
 );
 export const loadAppraisesSuccess = createAction('[Appraises] Load Appraises Success',
-    props<{ appraises:Appraise[] }>()
+    props<{ appraises:Appraise[], count:number }>()
 );
 
 export const loadAppraisesFailure = createAction(

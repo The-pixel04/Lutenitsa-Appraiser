@@ -14,8 +14,8 @@ export class AppraiseEffects {
             ofType(AppraiseActions.loadAppraises),
             mergeMap(({ page, pageSize }) =>
                 this.appraiseService.getAllAppraises(page, pageSize).pipe(
-                    map((appraises) =>
-                        AppraiseActions.loadAppraisesSuccess({ appraises: appraises })
+                    map(({ appraises, count }) =>
+                        AppraiseActions.loadAppraisesSuccess({ appraises: appraises, count: count })
                     ),
                     catchError((error) =>
                         of(AppraiseActions.loadAppraisesFailure({ error }))

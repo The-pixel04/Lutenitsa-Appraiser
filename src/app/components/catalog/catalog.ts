@@ -8,7 +8,7 @@ import { AppraiseCard } from "../appraise-card/appraise-card";
 import { MatPaginator } from '@angular/material/paginator';
 import { Store } from '@ngrx/store';
 import { AppSate } from '../../core/store';
-import { selectAppraiseLoading, selectAppraises } from '../../core/store/appraises/appraise.selector';
+import { selectAppraiseLoading, selectAppraises, selectAppraisesCount } from '../../core/store/appraises/appraise.selector';
 import { loadAppraises, loadAppraisesReset } from '../../core/store/appraises/appraise.actions';
 
 @Component({
@@ -20,14 +20,14 @@ import { loadAppraises, loadAppraisesReset } from '../../core/store/appraises/ap
 
 export class Catalog implements OnInit, OnDestroy {
     appraises$!: Observable<Appraise[]>
+    count$!: Observable<number>;
     private destroy$ = new Subject<void>();
     private router = inject(Router);
     error: string | null = null;
-    loading!: Observable<boolean>
+    loading$!: Observable<boolean>
 
     pageSize: number = 12;
     currentPage: number = 1;
-    totalCount: number = 1
 
     @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -40,7 +40,8 @@ export class Catalog implements OnInit, OnDestroy {
             }
 
             this.appraises$ = this.store.select(selectAppraises);
-            this.loading = this.store.select(selectAppraiseLoading)
+            this.count$ = this.store.select(selectAppraisesCount);
+            this.loading$ = this.store.select(selectAppraiseLoading);
 
             this.loadAppraises()
         });
@@ -58,11 +59,7 @@ export class Catalog implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
-        this.appraises$.subscribe({
-            next: (data) => {
-                this.totalCount = data.length
-            }
-        })
+
     }
 
     ngOnDestroy(): void {

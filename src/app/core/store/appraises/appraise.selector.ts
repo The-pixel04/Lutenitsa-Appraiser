@@ -8,6 +8,11 @@ export const selectAppraises = createSelector(
     (state: AppraiseState) => state.appraises,
 );
 
+export const selectAppraisesCount = createSelector(
+    selectAppraiseState,
+    (state: AppraiseState) => state.count,
+);
+
 export const selectAppraiseLoading = createSelector(
     selectAppraiseState,
     (state: AppraiseState) => state.loading

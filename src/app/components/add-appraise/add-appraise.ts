@@ -43,7 +43,7 @@ export class AddAppraise implements OnDestroy {
                 takeUntil(this.destroy$)
             ).subscribe({
                 next: () => {
-                    this.router.navigate(['/catalog'])
+                    this.router.navigate(['/catalog/1'])
                 },
                 error: (err) => {
                     return err;

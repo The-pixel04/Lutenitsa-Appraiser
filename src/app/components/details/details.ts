@@ -1,5 +1,5 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { AppraiseService } from '../../core/services/appraise.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AsyncPipe, DatePipe, Location } from '@angular/common';
@@ -31,7 +31,6 @@ export class Details implements OnInit, OnDestroy {
     private datePipe = new DatePipe('en-US');
     private authService = inject(AuthService);
     private commentService = inject(CommentService);
-    private router = inject(Router);
     private userId: string | null = null;
     isAuthenticated: boolean = false;
     isOwner: boolean = false;
@@ -80,7 +79,7 @@ export class Details implements OnInit, OnDestroy {
             takeUntil(this.destroy$)
         ).subscribe({
             next: () => {
-                this.router.navigate(['/catalog']);
+                this.location.back();
             },
             error: (err) => {
                 console.error('Error deleting appraise:', err);

@@ -6,12 +6,14 @@ import * as AppraiseActions from './appraise.actions'
 
 export interface AppraiseState {
     appraises: Appraise[],
+    count: number,
     loading: boolean,
     error: HttpErrorResponse | null;
 }
 
 export const initialAppraiseState: AppraiseState = {
     appraises: [],
+    count: 0,
     loading: false,
     error: null
 }
@@ -23,9 +25,10 @@ export const appraiseReducer = createReducer(
         loading: true,
         error: null
     })),
-    on(AppraiseActions.loadAppraisesSuccess, (state, { appraises}) => ({
+    on(AppraiseActions.loadAppraisesSuccess, (state, { appraises, count }) => ({
         ...state,
         appraises: appraises,
+        count: count,
         loading: false
     })),
     on(AppraiseActions.loadAppraisesFailure, (state, { error }) => ({
@@ -36,6 +39,7 @@ export const appraiseReducer = createReducer(
     on(AppraiseActions.loadAppraisesReset, state => ({
         ...state,
         appraises: [],
+        count: 0,
         loading: false,
         error: null
     }))

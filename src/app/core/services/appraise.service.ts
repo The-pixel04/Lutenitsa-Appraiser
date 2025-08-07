@@ -17,7 +17,7 @@ export class AppraiseService {
     constructor(private supaBaseService: SupabaseService) {
     }
 
-    getAllAppraises(page: number, pageSize: number): Observable<Appraise[]> {
+    getAllAppraises(page: number, pageSize: number): Observable<{ appraises: Appraise[], count: number }> {
         const fromNum = (page - 1) * pageSize;
         const to = fromNum + pageSize - 1;
 
@@ -28,8 +28,10 @@ export class AppraiseService {
                 .range(fromNum, to)
                 .then(res => {
                     if (res.error) throw res.error;
-                    return res.data as Appraise[]
-
+                    return {
+                        appraises: res.data as Appraise[],
+                        count: res.count ?? 0
+                    }
                 })
         )
     }
