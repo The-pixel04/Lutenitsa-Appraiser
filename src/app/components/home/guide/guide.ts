@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { trigger, transition, style, animate, stagger, query, useAnimation } from '@angular/animations';
-import { bounceIn, fadeIn, pulse } from 'ng-animate';
+import { bounceIn, pulse } from 'ng-animate';
 import { RouterLink } from '@angular/router';
 
 @Component({

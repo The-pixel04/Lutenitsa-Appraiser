@@ -39,6 +39,12 @@
         flex-direction: column;
         align-items: center;
     }
+
+    mat-paginator {
+        display: flex;
+        background: transparent;
+        margin-top: 20px;
+    }
 }
 
 mat-paginator {

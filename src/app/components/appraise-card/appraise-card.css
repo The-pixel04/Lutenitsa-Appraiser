@@ -78,6 +78,6 @@ a{
 
 @media (max-width: 780px) {
     .appraise-card {
-        width: 100%;
+        width: 80%;
     }
 }
