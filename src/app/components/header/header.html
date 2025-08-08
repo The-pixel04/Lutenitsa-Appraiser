@@ -22,7 +22,7 @@
 
                 @if(isAuthenticated()){
                 <a routerLink="/add-appraise" routerLinkActive="active" (click)="closeMenu()">Add Appraise</a>
-                <a routerLinkActive="active" (click)="closeMenu()" (click)="logOut()">Logout</a>
+                <a routerLink="/logout" routerLinkActive="active" (click)="closeMenu()">Logout</a>
                 }@else{
                 <a routerLink="/register" routerLinkActive="active" (click)="closeMenu()">Register</a>
                 }

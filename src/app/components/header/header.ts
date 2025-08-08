@@ -32,14 +32,6 @@ export class Header {
 
     menuOpen = false;
 
-    logOut(): void {
-        this.authService.logout().subscribe({
-            error: (err) => {
-                console.error('Logout failed', err);
-            }
-        })
-    }
-
     toggleMenu(): void {
         this.menuOpen = !this.menuOpen;
         document.body.style.overflow = this.menuOpen ? 'hidden' : '';
