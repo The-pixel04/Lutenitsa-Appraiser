@@ -1,30 +1,42 @@
 <mat-card class="appraise-card">
-  <h2>Edit Appraise</h2>
-  
-  <form [formGroup]="editForm" (ngSubmit)="onSubmit()" class="appraise-form">
-    
-    <mat-form-field appearance="outline">
-      <mat-label>Brand</mat-label>
-      <input matInput formControlName="brand" placeholder="Enter brand name">
-    </mat-form-field>
+    <h2>Edit Appraise</h2>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Image URL</mat-label>
-      <input matInput formControlName="image" placeholder="Enter image URL">
-    </mat-form-field>
+    <form [formGroup]="editForm" (ngSubmit)="onSubmit()" class="appraise-form">
 
-    <mat-form-field appearance="outline">
-      <mat-label>Rating</mat-label>
-      <input matInput formControlName="rating" placeholder="0-10">
-    </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Brand</mat-label>
+            <input matInput formControlName="brand" placeholder="Enter brand name">
+        </mat-form-field>
+        @if(brandError){
+        <p class="error">{{brandErrorMessage}}</p>
+        }
 
-    <mat-form-field appearance="outline">
-      <mat-label>Your Appraise</mat-label>
-      <textarea matInput formControlName="appraise" rows="4" placeholder="Write your review..."></textarea>
-    </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Image URL</mat-label>
+            <input matInput formControlName="image" placeholder="Enter image URL">
+        </mat-form-field>
+        @if(imageError){
+        <p class="error">{{imageErrorMessage}}</p>
+        }
 
-    <button mat-raised-button color="primary" type="submit" [disabled]="!editForm.valid">
-      Edit Appraise
-    </button>
-  </form>
+        <mat-form-field appearance="outline">
+            <mat-label>Rating</mat-label>
+            <input matInput formControlName="rating" placeholder="0-10">
+        </mat-form-field>
+        @if(ratingError){
+        <p class="error">{{ratingErrorMessage}}</p>
+        }
+
+        <mat-form-field appearance="outline">
+            <mat-label>Your Appraise</mat-label>
+            <textarea matInput formControlName="appraise" rows="4" placeholder="Write your review..."></textarea>
+        </mat-form-field>
+        @if(appraiseError){
+        <p class="error">{{appraiseErrorMessage}}</p>
+        }
+
+        <button mat-raised-button color="primary" type="submit" [disabled]="!editForm.valid">
+            Edit Appraise
+        </button>
+    </form>
 </mat-card>

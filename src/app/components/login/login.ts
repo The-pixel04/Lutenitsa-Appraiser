@@ -8,7 +8,7 @@ import { RouterLink } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
 import { Subject, takeUntil } from 'rxjs';
 import { Location } from '@angular/common';
-import { LoginFormService } from '../../utils/forms/login.form';
+import { LoginFormService } from '../../utils/authForms/login.form';
 
 @Component({
 	selector: 'app-login',

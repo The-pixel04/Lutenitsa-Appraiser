@@ -56,7 +56,7 @@ export class RegisterFormService {
 
     getRePasswordErrorMessage(confirmPassword: AbstractControl | null): string {
         if (confirmPassword?.errors?.['required']) {
-            return 'RePassword is required';
+            return 'ConfirmPassword is required';
         }
 
         if (confirmPassword?.errors?.['minlength']) {

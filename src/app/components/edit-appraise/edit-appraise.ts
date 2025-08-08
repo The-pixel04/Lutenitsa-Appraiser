@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -8,6 +8,7 @@ import { AppraiseService } from '../../core/services/appraise.service';
 import { AuthService } from '../../core/services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
+import { AppraiseFormService } from '../../utils/appraiseForms/appraise.form';
 
 @Component({
     selector: 'app-edit-appraise',
@@ -22,18 +23,25 @@ import { Subject, takeUntil } from 'rxjs';
 })
 export class EditAppraise {
     editForm: FormGroup;
+    brand: AbstractControl | null;
+    image: AbstractControl | null;
+    rating: AbstractControl | null;
+    appraise: AbstractControl | null;
+    brandErrorMessage: string = '';
+    imageErrorMessage: string = '';
+    ratingErrorMessage: string = '';
+    appraiseErrorMessage: string = '';
     private appraiseService = inject(AppraiseService);
     private authService = inject(AuthService);
     private router = inject(Router);
     private destroy$ = new Subject<void>();
 
-    constructor(private fb: FormBuilder, private route: ActivatedRoute) {
-        this.editForm = this.fb.group({
-            brand: ['', Validators.required],
-            image: ['', Validators.required],
-            rating: [null, [Validators.required, Validators.min(0), Validators.max(10)]],
-            appraise: ['', [Validators.required, Validators.minLength(10)]]
-        });
+    constructor(private form: AppraiseFormService, private route: ActivatedRoute) {
+        this.editForm = this.form.createForm();
+        this.brand = this.form.getBrand(this.editForm);
+        this.image = this.form.getImage(this.editForm);
+        this.rating = this.form.getRating(this.editForm);
+        this.appraise = this.form.getAppraise(this.editForm);
 
         const id = Number(this.route.snapshot.paramMap.get('id'));
         this.appraiseService.getAppraiseWithComments(id).pipe(
@@ -48,7 +56,26 @@ export class EditAppraise {
                 });
             }
         });
+    }
 
+    get brandError(): boolean {
+        this.brandErrorMessage = this.form.getBrandErrorMessage(this.brand);
+        return this.brand?.invalid && (this.brand?.dirty || this.brand?.touched) || false
+    }
+
+    get imageError(): boolean {
+        this.imageErrorMessage = this.form.getImageErrorMessage(this.image);
+        return this.image?.invalid && (this.image?.dirty || this.image?.touched) || false
+    }
+
+    get ratingError(): boolean {
+        this.ratingErrorMessage = this.form.getRatingErrorMessage(this.rating);
+        return this.rating?.invalid && (this.rating?.dirty || this.rating?.touched) || false
+    }
+
+    get appraiseError(): boolean {
+        this.appraiseErrorMessage = this.form.getAppraiseErrorMessage(this.appraise);
+        return this.appraise?.invalid && (this.appraise?.dirty || this.appraise?.touched) || false
     }
 
     async onSubmit(): Promise<void> {

@@ -8,7 +8,7 @@ import { RouterLink } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
 import { Subject, takeUntil } from 'rxjs';
 import { Location } from '@angular/common';
-import { RegisterFormService } from '../../utils/forms/register.form';
+import { RegisterFormService } from '../../utils/authForms/register.form';
 
 @Component({
     selector: 'app-register',
