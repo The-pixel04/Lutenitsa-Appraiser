@@ -41,6 +41,16 @@
     margin-top: 20px;
 }
 
+@media (max-width:1024px) {
+    .appraise-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        flex-direction: row;
+        gap: 10px;
+        margin-top: 20px;
+    }
+}
+
 @media (max-width: 780px) {
     .appraise-container {
         width: 100%;

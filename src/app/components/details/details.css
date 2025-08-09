@@ -116,6 +116,10 @@ button {
     cursor: pointer;
 }
 
+button:disabled {
+    background: #e0a99a;
+}
+
 .comments-list {
     display: flex;
     flex-direction: column;

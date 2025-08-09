@@ -50,8 +50,8 @@
 
         @if(isAuthenticated){
         <form (ngSubmit)="submitComment()" class="comment-form" [formGroup]="commentForm">
-            <textarea formControlName="comment" placeholder="Leave a comment..." required></textarea>
-            <button type="submit">Post</button>
+            <textarea formControlName="comment" placeholder="Leave a comment..."></textarea>
+            <button type="submit" [disabled]="!commentForm.valid">Post</button>
         </form>
         }
 
