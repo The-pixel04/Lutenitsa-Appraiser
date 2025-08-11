@@ -25,12 +25,13 @@
     --mdc-circular-progress-active-indicator-color: #3f51b5;
 }
 
-@media (max-width:1024px) {
+@media (max-width:1200px) {
     .appraise-grid {
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        flex-direction: row;
-        gap: 10px;
+        grid-template-columns: repeat(2, 0.4fr);
+        flex-direction: column;
+        align-items: center;
+        gap: 25px;
         margin-top: 20px;
     }
 }
@@ -38,6 +39,7 @@
 @media (max-width: 780px) {
     .appraise-container {
         width: 100%;
+       padding: 0;
 
         h2 {
             text-align: center;

@@ -11,8 +11,8 @@ export class AppraiseFormService {
     createForm(): FormGroup {
         return this.fb.group({
             brand: ['', Validators.required],
-            image: ['', Validators.required],
-            rating: [null, [Validators.required, Validators.min(0), Validators.max(10)]],
+            image: ['', [Validators.required, Validators.pattern(/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/i)]],
+            rating: [null, [Validators.required, Validators.min(0), Validators.max(10), Validators.pattern(/^[0-9]+(\.[0-9]{1,2})?$/)]],
             appraise: ['', [Validators.required, Validators.minLength(10)]]
         });
     }
@@ -46,6 +46,10 @@ export class AppraiseFormService {
             return 'Image is required';
         }
 
+        if (image?.errors?.['pattern']) {
+            return 'Please enter a url';
+        }
+
         return '';
     }
 
@@ -60,6 +64,10 @@ export class AppraiseFormService {
 
         if (rating?.errors?.['max']) {
             return 'Rating must be max 10';
+        }
+
+        if (rating?.errors?.['pattern']) {
+            return 'Rating must be a number';
         }
 
         return '';

@@ -12,8 +12,9 @@
     }
 }
 
-a {
+.appraise-card-link {
     text-decoration: none;
+    width: 400px;
 }
 
 .image-container {
@@ -77,8 +78,21 @@ a {
     color: #d32f2f;
 }
 
+
+@media (max-width:1200px) {
+    .appraise-card {
+        width: 400px;
+    }
+
+    .appraise-card-link {
+        text-decoration: none;
+        width: 400px;
+    }
+}
+
+
 @media (max-width: 780px) {
     .appraise-card {
-        width: 80%;
+        width: 300px;
     }
 }

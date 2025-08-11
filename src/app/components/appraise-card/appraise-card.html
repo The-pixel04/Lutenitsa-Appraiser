@@ -1,5 +1,5 @@
-<a routerLink="/details/{{appraise.id}}">
-    <div class="appraise-card">
+<div class="appraise-card">
+    <a routerLink="/details/{{appraise.id}}" class="appraise-card-link">
         <div class="image-container">
             <img [src]="appraise.image" [alt]="appraise.brand" class="appraise-image">
         </div>
@@ -11,5 +11,5 @@
                 } /10</p>
             <p class="date">{{ appraise.created_at | date:'mediumDate' }}</p>
         </div>
-    </div>
-</a>
+    </a>
+</div>

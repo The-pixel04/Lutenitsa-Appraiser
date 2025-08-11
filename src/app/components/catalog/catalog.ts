@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { Observable, Subject } from 'rxjs';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AppraiseCard } from "../appraise-card/appraise-card";
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { Store } from '@ngrx/store';
 import { AppSate } from '../../core/store';
 import { selectAppraiseLoading, selectAppraises, selectAppraisesCount } from '../../core/store/appraises/appraise.selector';
@@ -51,7 +51,7 @@ export class Catalog implements OnInit, OnDestroy {
         this.store.dispatch(loadAppraises({ page: this.currentPage, pageSize: this.pageSize }))
     }
 
-    onPageChange(event: any): void {
+    onPageChange(event: PageEvent): void {
         this.currentPage = event.pageIndex + 1;
         this.pageSize = event.pageSize;
         this.router.navigate(['/catalog', this.currentPage]);
