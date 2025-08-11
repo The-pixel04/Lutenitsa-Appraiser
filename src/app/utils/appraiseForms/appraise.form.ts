@@ -11,7 +11,7 @@ export class AppraiseFormService {
     createForm(): FormGroup {
         return this.fb.group({
             brand: ['', Validators.required],
-            image: ['', [Validators.required, Validators.pattern(/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/i)]],
+            image: ['', [Validators.required, Validators.pattern(/https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,}/i)]],
             rating: [null, [Validators.required, Validators.min(0), Validators.max(10), Validators.pattern(/^[0-9]+(\.[0-9]{1,2})?$/)]],
             appraise: ['', [Validators.required, Validators.minLength(10)]]
         });

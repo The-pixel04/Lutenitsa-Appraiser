@@ -44,8 +44,3 @@ button[type="submit"] {
         cursor: not-allowed;
     }
 }
-
-.error {
-    margin: 0;
-    margin-top: -25px;
-}
