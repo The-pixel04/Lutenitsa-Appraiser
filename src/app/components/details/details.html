@@ -63,6 +63,9 @@
             }
         </div>
 
+        <mat-paginator [length]="count" [pageSize]="pageSize" [pageIndex]="currentPage-1" (page)="onPageChange($event)">
+        </mat-paginator>
+
     </div>
 </div>
 }

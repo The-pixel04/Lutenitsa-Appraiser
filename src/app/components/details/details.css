@@ -127,3 +127,8 @@ button:disabled {
     margin-top: 1.5rem;
     padding: 0;
 }
+
+mat-paginator {
+    background: transparent;
+    margin-top: 20px;
+}

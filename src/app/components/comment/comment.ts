@@ -11,8 +11,5 @@ import { DatePipe } from '@angular/common';
 })
 export class CommentCard {
     @Input() comment !: Comment;
-
-
-
 }
 

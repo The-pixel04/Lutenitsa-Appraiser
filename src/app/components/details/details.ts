@@ -1,15 +1,16 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { AppraiseService } from '../../core/services/appraise.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AsyncPipe, DatePipe, Location } from '@angular/common';
-import { catchError, finalize, Observable, of, Subject, takeUntil } from 'rxjs';
+import { catchError, finalize, map, Observable, of, Subject, takeUntil } from 'rxjs';
 import { MatButtonModule } from '@angular/material/button';
 import { AuthService } from '../../core/services/auth.service';
 import { ExtendedAppraise } from '../../models/extendedAppraise.model';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommentCard } from "../comment/comment";
 import { CommentService } from '../../core/services/comment.service';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 
 @Component({
     selector: 'app-details',
@@ -19,7 +20,8 @@ import { CommentService } from '../../core/services/comment.service';
         MatButtonModule,
         RouterLink,
         ReactiveFormsModule,
-        CommentCard],
+        CommentCard,
+        MatPaginator],
     templateUrl: './details.html',
     styleUrl: './details.css'
 })
@@ -31,9 +33,17 @@ export class Details implements OnInit, OnDestroy {
     private datePipe = new DatePipe('en-US');
     private authService = inject(AuthService);
     private commentService = inject(CommentService);
+    private id: number = 0;
     private userId: string | null = null;
     isAuthenticated: boolean = false;
     isOwner: boolean = false;
+
+
+    pageSize: number = 1;
+    currentPage: number = 1;
+    count: number = 0;
+
+    @ViewChild(MatPaginator) paginator!: MatPaginator;
 
     constructor(
         private route: ActivatedRoute,
@@ -41,25 +51,32 @@ export class Details implements OnInit, OnDestroy {
         private location: Location,
         private fb: FormBuilder,
     ) {
-        const id = Number(this.route.snapshot.paramMap.get('id'));
-        this.appraise$ = this.loadAppraise(id);
         this.commentForm = this.fb.group({
             comment: ['', [Validators.required, Validators.maxLength(500)]]
         });
-
     }
 
 
     loadAppraise(id: number): Observable<ExtendedAppraise> {
         this.loading = true;
 
-        return this.appraiseService.getAppraiseWithComments(id).pipe(
+        return this.appraiseService.getDetails(id, this.currentPage, this.pageSize).pipe(
             takeUntil(this.destroy$),
+            map(res => {
+                this.count = res.count;
+                return res.appraise;
+            }),
             finalize(() => this.loading = false),
             catchError(err => {
                 return of(err);
             })
         );
+    }
+
+    onPageChange(event: PageEvent): void {
+        this.currentPage = event.pageIndex + 1;
+        this.pageSize = event.pageSize;
+        this.appraise$ = this.loadAppraise(this.id);
     }
 
     formatDate(dateString: string): string {
@@ -88,6 +105,9 @@ export class Details implements OnInit, OnDestroy {
     }
 
     async ngOnInit() {
+        this.id = Number(this.route.snapshot.paramMap.get('id'));
+        this.appraise$ = this.loadAppraise(this.id);
+
         this.userId = await this.authService.getUserId();
         this.isAuthenticated = this.authService.isAuthenticated();
         this.appraise$.pipe(
