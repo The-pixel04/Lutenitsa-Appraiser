@@ -39,7 +39,7 @@ export class Details implements OnInit, OnDestroy {
     isOwner: boolean = false;
 
 
-    pageSize: number = 1;
+    pageSize: number = 5;
     currentPage: number = 1;
     count: number = 0;
 
