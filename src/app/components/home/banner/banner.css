@@ -88,7 +88,7 @@ p {
 
 .pepper:nth-child(3) {
     top: 15%;
-    left: 60%;
+    left: 50%;
     animation-delay: 1s;
 }
 
@@ -99,8 +99,14 @@ p {
 }
 
 .pepper:nth-child(5) {
-    top: 60%;
+    top: 65%;
     left: 50%;
+    animation-delay: 2s;
+}
+
+.pepper:nth-child(6) {
+    top: 15%;
+    left: 85%;
     animation-delay: 2s;
 }
 

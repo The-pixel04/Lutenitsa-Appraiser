@@ -8,7 +8,7 @@ import { Component, Input, OnDestroy } from '@angular/core';
 })
 export class Banner implements OnDestroy {
     @Input() slideshowFinished = true;
-    peppers = ['🍅', '🌶️', '🧄', '🧅'];
+    peppers = ['🍅', '🌶️', '🧄', '🧅', '🍞'];
     animatedPeppers: string[] = [];
     private intervalId!: number;
 
@@ -18,7 +18,7 @@ export class Banner implements OnDestroy {
 
     animatePeppers() {
         this.intervalId = window.setInterval(() => {
-            this.animatedPeppers = Array.from({ length: 5 },
+            this.animatedPeppers = Array.from({ length: 6 },
                 () => this.peppers[Math.floor(Math.random() * this.peppers.length)]
             );
         }, 1500);
