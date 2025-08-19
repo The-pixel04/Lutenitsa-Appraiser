@@ -4,6 +4,10 @@
     margin: 0 auto;
 }
 
+h2 {
+    font-size: 2em;
+}
+
 
 .appraise-grid {
     display: grid;
@@ -39,7 +43,7 @@
 @media (max-width: 780px) {
     .appraise-container {
         width: 100%;
-       padding: 0;
+        padding: 0;
 
         h2 {
             text-align: center;
@@ -62,4 +66,9 @@
 mat-paginator {
     background: transparent;
     margin-top: 20px;
+}
+
+.search-bar{
+display: flex;
+justify-content: center;
 }

@@ -16,23 +16,30 @@ export class AppraiseService {
     constructor(private supaBaseService: SupabaseService) {
     }
 
-    getAllAppraises(page: number, pageSize: number): Observable<{ appraises: Appraise[], count: number }> {
+    getAllAppraises(page: number, pageSize: number, search: string = ''): Observable<{ appraises: Appraise[], count: number }> {
         const fromNum = (page - 1) * pageSize;
         const to = fromNum + pageSize - 1;
 
+        let query = this.supaBaseService.getClient()
+            .from('appraises')
+            .select('*', { count: 'exact' })
+            .range(fromNum, to);
+
+        if (search.trim() !== '') {
+            query = query.or(
+                `brand.ilike.%${search}%,brand.ilike.%${search}%`
+            );
+        }
+
         return from(
-            this.supaBaseService.getClient()
-                .from('appraises')
-                .select('*', { count: 'exact' })
-                .range(fromNum, to)
-                .then(res => {
-                    if (res.error) throw res.error;
-                    return {
-                        appraises: res.data as Appraise[],
-                        count: res.count ?? 0
-                    }
-                })
-        )
+            query.then(res => {
+                if (res.error) throw res.error;
+                return {
+                    appraises: res.data as Appraise[],
+                    count: res.count ?? 0
+                };
+            })
+        );
     }
 
     getAppraiseWithComments(id: number): Observable<ExtendedAppraise> {
@@ -88,7 +95,7 @@ export class AppraiseService {
         const comments$ = from(
             this.supaBaseService.getClient()
                 .from('comments')
-                .select('*',{ count: 'exact' })
+                .select('*', { count: 'exact' })
                 .eq('appraiseId', id)
                 .order('created_at', { ascending: false })
                 .range(fromNum, to)

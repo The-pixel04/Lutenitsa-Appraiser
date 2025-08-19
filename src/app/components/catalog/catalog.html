@@ -1,6 +1,13 @@
 <div class="appraise-container">
     <h2>Lutenitsa Appraises</h2>
 
+    <div class="search-bar">
+        <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Search Lutenitsa</mat-label>
+            <input matInput [formControl]="searchControl" placeholder="Enter brand or keyword">
+        </mat-form-field>
+    </div>
+
     @if (loading$|async) {
     <div class="spinner">
         <mat-progress-spinner strokeWidth="5" mode="indeterminate" diameter="70"></mat-progress-spinner>
@@ -16,5 +23,6 @@
     }
 </div>
 
-<mat-paginator [length]="count$ | async" [pageSize]="pageSize" [pageIndex]="currentPage-1" (page)="onPageChange($event)">
+<mat-paginator [length]="count$ | async" [pageSize]="pageSize" [pageIndex]="currentPage-1"
+    (page)="onPageChange($event)">
 </mat-paginator>

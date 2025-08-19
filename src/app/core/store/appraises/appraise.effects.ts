@@ -12,8 +12,8 @@ export class AppraiseEffects {
     loadAppraises$ = createEffect(() =>
         this.actions$.pipe(
             ofType(AppraiseActions.loadAppraises),
-            mergeMap(({ page, pageSize }) =>
-                this.appraiseService.getAllAppraises(page, pageSize).pipe(
+            mergeMap(({ page, pageSize, search }) =>
+                this.appraiseService.getAllAppraises(page, pageSize, search).pipe(
                     map(({ appraises, count }) =>
                         AppraiseActions.loadAppraisesSuccess({ appraises: appraises, count: count })
                     ),
