@@ -33,8 +33,7 @@ h2 {
     .appraise-grid {
         display: grid;
         grid-template-columns: repeat(2, 0.4fr);
-        flex-direction: column;
-        align-items: center;
+        justify-content: center;
         gap: 25px;
         margin-top: 20px;
     }
@@ -68,7 +67,26 @@ mat-paginator {
     margin-top: 20px;
 }
 
-.search-bar{
-display: flex;
-justify-content: center;
+.search-bar {
+    display: flex;
+    justify-content: center;
+}
+
+.field {
+    background: #fff;
+}
+
+mat-form-field {
+    border-color: #3f51b5;
+    border-width: 4px;
+}
+
+mat-label {
+    color: #fa541c;
+    border: none;
+    background: transparent;
+}
+
+.mat-mdc-form-field-bottom-align::before {
+    display: none !important;
 }

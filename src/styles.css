@@ -47,6 +47,10 @@ a {
     visibility: visible !important;
 }
 
+.mat-mdc-form-field-bottom-align::before {
+    display: none !important;
+}
+
 @media (max-width: 1050px) {
     main {
         min-height: calc(80vh - 80px);
