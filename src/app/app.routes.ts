@@ -59,6 +59,7 @@ export const routes: Routes = [
     },
     {
         path: 'logout',
-        loadComponent: () => import('../app/components/logout/logout').then(c => c.Logout)
+        loadComponent: () => import('../app/components/logout/logout').then(c => c.Logout),
+        canActivate: [authGuard]
     }
 ];
